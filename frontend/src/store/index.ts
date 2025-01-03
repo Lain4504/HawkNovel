@@ -53,10 +53,6 @@ const store = createStore({
         toggleDarkMode({ commit }: { commit: Function }) {
             commit("toggleDarkMode");
         },
-        initializeDarkMode({ commit }: { commit: Function }) {
-            const savedDarkMode = localStorage.getItem("isDarkMode") === "true";
-            commit("setDarkMode", savedDarkMode);
-        },
     },
     getters: {
         isAuthenticated(state: UserState): boolean {

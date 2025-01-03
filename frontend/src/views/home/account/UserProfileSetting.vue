@@ -115,7 +115,7 @@ onMounted(() => {
 
 <template>
   <a-layout>
-    <a-layout-content>
+    <a-layout-content style="background-color: white;">
       <div class="container mx-auto px-4 py-8 max-w-5xl">
         <div class="shadow-2xl rounded-2xl overflow-hidden">
           <a-tabs v-model:activeKey="activeTab" class="ml-4">

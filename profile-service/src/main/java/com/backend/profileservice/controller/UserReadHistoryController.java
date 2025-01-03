@@ -1,16 +1,18 @@
 package com.backend.profileservice.controller;
 
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.backend.dto.response.ApiResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserReadHistoryRequest;
 import com.backend.profileservice.dto.response.NovelDetailsResponse;
 import com.backend.profileservice.dto.response.UserReadHistoryResponse;
 import com.backend.profileservice.service.UserReadHistoryService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user-read-history")
@@ -43,8 +45,7 @@ public class UserReadHistoryController {
     public ApiResponse<PageResponse<NovelDetailsResponse>> getReadingHistory(
             @PathVariable String userId,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
-    ) {
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
         return ApiResponse.<PageResponse<NovelDetailsResponse>>builder()
                 .result(userReadHistoryService.getReadHistoryWithDetails(userId, page, size))
                 .build();

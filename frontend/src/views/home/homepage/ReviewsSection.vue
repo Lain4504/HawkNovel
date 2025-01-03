@@ -42,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto p-4">
+  <div class="p-4">
     <a-typography-title level={2} style="font-size: 24px">Đánh giá mới nhất</a-typography-title>
 
     <a-skeleton :loading="loading" active>

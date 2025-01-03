@@ -49,7 +49,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <main class="max-w-7xl mx-auto bg-white">
+  <main class="mx-auto bg-white">
     <section class="p-4">
       <header class="mb-6">
         <div class="flex justify-between items-center mb-2">

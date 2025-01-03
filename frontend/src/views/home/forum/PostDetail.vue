@@ -87,7 +87,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto">
+  <div class="mx-auto">
     <article class="bg-white p-6 mt-6 rounded-lg shadow-md">
       <header class="flex items-center justify-between mb-6">
         <div class="flex items-center">
@@ -114,11 +114,3 @@ onMounted(() => {
     </article>
   </div>
 </template>
-
-<style scoped>
-.content-body {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: #333;
-}
-</style>

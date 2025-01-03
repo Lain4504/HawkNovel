@@ -1,12 +1,14 @@
 package com.backend.profileservice.controller;
 
+import org.springframework.web.bind.annotation.*;
+
 import com.backend.dto.response.ApiResponse;
 import com.backend.profileservice.dto.request.UserNovelRatingRequest;
 import com.backend.profileservice.dto.response.UserNovelRatingResponse;
 import com.backend.profileservice.service.UserNovelRatingService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user-novel-rating")
@@ -35,6 +37,7 @@ public class UserNovelRatingController {
                 .result(userNovelRatingService.hasRatedNovel(userId, novelId))
                 .build();
     }
+
     @GetMapping("/get-rating/{userId}/{novelId}")
     public ApiResponse<UserNovelRatingResponse> getRating(@PathVariable String userId, @PathVariable String novelId) {
         return ApiResponse.<UserNovelRatingResponse>builder()

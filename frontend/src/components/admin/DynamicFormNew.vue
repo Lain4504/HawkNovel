@@ -62,7 +62,7 @@ const handleCancel = () => {
 </script>
 
 <template>
-  <a-layout class="flex-1 p-6 bg-white shadow-md max-w-5xl mx-auto">
+  <a-layout class="flex-1 p-6 bg-white shadow-md">
     <a-typography-title level="3" class="my-2" :style="{ color: '#18A058', fontSize: '20px' }">{{ title }}</a-typography-title>
     <a-form @submit.prevent="handleAddItem">
       <div class="space-y-6">

@@ -1,10 +1,11 @@
 package com.backend.profileservice.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+
 import com.backend.profileservice.dto.request.UserBookmarkRequest;
 import com.backend.profileservice.dto.response.UserBookmarkResponse;
 import com.backend.profileservice.entity.UserBookmark;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserBookmarkMapper {

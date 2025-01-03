@@ -122,9 +122,9 @@ watch(activeTab, () => {
                   :to="{ name: 'noveldetail', params: { id: book.id } }"
                   class="hover:text-[#18A058]"
                 >
-                  <Title :level="5" class="!mb-2 line-clamp-2">
+                  <a-typography-title :level="5" class="!mb-2 line-clamp-2">
                     {{ book.title }}
-                  </Title>
+                  </a-typography-title>
                 </router-link>
                 <a-typography-text class="text-gray-500 line-clamp-3" v-html="book.description" />
                 <div class="flex items-center mt-2 italic">

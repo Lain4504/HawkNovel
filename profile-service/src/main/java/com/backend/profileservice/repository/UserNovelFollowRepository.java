@@ -1,10 +1,11 @@
 package com.backend.profileservice.repository;
 
-import com.backend.profileservice.entity.UserNovelFollow;
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.backend.profileservice.entity.UserNovelFollow;
 
 @Repository
 public interface UserNovelFollowRepository extends MongoRepository<UserNovelFollow, String> {

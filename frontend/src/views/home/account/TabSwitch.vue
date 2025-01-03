@@ -19,7 +19,7 @@ const handleTabChange = (key: string) => {
 </script>
 
 <template>
-  <section class="max-w-7xl mx-auto bg-white p-4 rounded">
+  <section class="mx-auto bg-white p-4 rounded">
     <a-tabs :activeKey="$route.name" @change="handleTabChange">
       <a-tab-pane v-for="tab in tabs" :key="tab.name" :tab="tab.label">
         <router-view v-if="$route.name === tab.name"/>

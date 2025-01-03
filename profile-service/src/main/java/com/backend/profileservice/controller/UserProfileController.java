@@ -1,16 +1,18 @@
 package com.backend.profileservice.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.backend.dto.response.ApiResponse;
 import com.backend.profileservice.dto.request.UserProfileUpdateRequest;
 import com.backend.profileservice.dto.response.UserProfileResponse;
 import com.backend.profileservice.service.UserProfileService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,8 +24,8 @@ public class UserProfileController {
     @GetMapping("/get/{userId}")
     ApiResponse<UserProfileResponse> getUserProfile(@PathVariable String userId) {
         return ApiResponse.<UserProfileResponse>builder()
-                .result(userProfileService.getProfile(userId)).
-                build();
+                .result(userProfileService.getProfile(userId))
+                .build();
     }
 
     @DeleteMapping("/{profileId}")
@@ -38,11 +40,14 @@ public class UserProfileController {
             @RequestPart("profile") UserProfileUpdateRequest request,
             @RequestPart(value = "image", required = false) MultipartFile imageFile) {
         return ApiResponse.<UserProfileResponse>builder()
-                .result(userProfileService.updateProfile(profileId, request, imageFile)).build();
+                .result(userProfileService.updateProfile(profileId, request, imageFile))
+                .build();
     }
 
     @GetMapping("/get-all")
     ApiResponse<List<UserProfileResponse>> getAllProfiles() {
-        return ApiResponse.<List<UserProfileResponse>>builder().result(userProfileService.getAllProfiles()).build();
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(userProfileService.getAllProfiles())
+                .build();
     }
 }

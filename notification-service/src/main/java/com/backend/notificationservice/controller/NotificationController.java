@@ -1,18 +1,20 @@
 package com.backend.notificationservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.MessagingException;
+import org.springframework.web.bind.annotation.*;
+
 import com.backend.dto.response.ApiResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.event.NotificationEvent;
 import com.backend.notificationservice.entity.Notification;
 import com.backend.notificationservice.service.NotificationService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.MessagingException;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/notifications")
@@ -38,8 +40,7 @@ public class NotificationController {
     ApiResponse<PageResponse<Notification>> getNotificationByUserId(
             @PathVariable("userId") String userId,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
-    ) {
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
         return ApiResponse.<PageResponse<Notification>>builder()
                 .result(notificationService.getNotifications(userId, page, size))
                 .build();

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import store from "../../store/index";
+
 interface Comment {
   id: string;
   userId: string;
@@ -10,6 +11,7 @@ interface Comment {
   replies?: Reply[];
   replyPage?: number;
   replyCount: number;
+  created: string;
 }
 
 interface Reply {
@@ -20,6 +22,7 @@ interface Reply {
   replyTo: string;
   userIdOfReplyTo: string;
   userId: string;
+  created: string;
 }
 
 const props = defineProps<{
@@ -203,11 +206,11 @@ const submitReplyForReply = async (replyId: string, commentId: string) => {
     <!-- Main comment form -->
     <a-comment v-if="isAuthenticated">
       <template #avatar>
-        <a-avatar :src="currentUserAvatar" :alt="currentUsername" />
+        <a-avatar :src="currentUserAvatar" :alt="currentUsername"/>
       </template>
       <template #content>
         <a-form-item>
-          <a-textarea v-model:value="newComment" :rows="4" />
+          <a-textarea v-model:value="newComment" :rows="4"/>
         </a-form-item>
         <a-form-item>
           <a-button html-type="submit" :loading="submitting" type="primary" @click="addComment">
@@ -224,7 +227,7 @@ const submitReplyForReply = async (replyId: string, commentId: string) => {
           <a-comment>
             <template #actions>
               <div class="comment-actions">
-                <span key="comment-basic-reply-to" @click="toggleReplyBox(comment.id)">Reply to</span>
+                <span key="comment-basic-reply-to" @click="toggleReplyBox(comment.id)" class="mr-2">Reply to</span>
                 <span v-if="comment.replyCount > 0" @click="toggleShowReplies(comment.id)">
                   {{ showReplies[comment.id] ? 'Hide Replies' : `Show Replies (${comment.replyCount})` }}
                 </span>
@@ -234,24 +237,29 @@ const submitReplyForReply = async (replyId: string, commentId: string) => {
               <a>{{ comment.username }}</a>
             </template>
             <template #avatar>
-              <a-avatar :src="comment.userAvatar" :alt="comment.username" />
+              <a-avatar :src="comment.userAvatar" :alt="comment.username"/>
             </template>
             <template #content>
               <p>{{ comment.content }}</p>
             </template>
-
+            <template #datetime>
+              <a-tooltip>
+                <span> {{ comment.created }}</span>
+              </a-tooltip>
+            </template>
             <!-- Comment reply form -->
             <div v-if="replyBoxes[comment.id]">
               <a-comment>
                 <template #avatar>
-                  <a-avatar :src="currentUserAvatar" :alt="currentUsername" />
+                  <a-avatar :src="currentUserAvatar" :alt="currentUsername"/>
                 </template>
                 <template #content>
                   <a-form-item>
-                    <a-textarea v-model:value="replyText[comment.id]" :rows="4" />
+                    <a-textarea v-model:value="replyText[comment.id]" :rows="4"/>
                   </a-form-item>
                   <a-form-item>
-                    <a-button html-type="submit" :loading="submitting" type="primary" @click="() => submitReply(comment.id)">
+                    <a-button html-type="submit" :loading="submitting" type="primary"
+                              @click="() => submitReply(comment.id)">
                       Add Reply
                     </a-button>
                   </a-form-item>
@@ -277,14 +285,15 @@ const submitReplyForReply = async (replyId: string, commentId: string) => {
                 <div v-if="replyBoxes[reply.id]" class="ml-16">
                   <a-comment>
                     <template #avatar>
-                      <a-avatar :src="currentUserAvatar" :alt="currentUsername" />
+                      <a-avatar :src="currentUserAvatar" :alt="currentUsername"/>
                     </template>
                     <template #content>
                       <a-form-item>
-                        <a-textarea v-model:value="replyText[reply.id]" :rows="4" />
+                        <a-textarea v-model:value="replyText[reply.id]" :rows="4"/>
                       </a-form-item>
                       <a-form-item>
-                        <a-button html-type="submit" :loading="submitting" type="primary" @click="() => submitReplyForReply(reply.id, comment.id)">
+                        <a-button html-type="submit" :loading="submitting" type="primary"
+                                  @click="() => submitReplyForReply(reply.id, comment.id)">
                           Add Reply
                         </a-button>
                       </a-form-item>
@@ -295,8 +304,9 @@ const submitReplyForReply = async (replyId: string, commentId: string) => {
             </div>
 
             <!-- Load more replies button -->
-            <div v-if="showReplies[comment.id] && comment.replies?.length && comment.replyCount > comment.replies.length"
-                 class="load-more">
+            <div
+                v-if="showReplies[comment.id] && comment.replies?.length && comment.replyCount > comment.replies.length"
+                class="load-more">
               <a-button @click="() => loadMoreReplies(comment.id)">Load More Replies</a-button>
             </div>
           </a-comment>

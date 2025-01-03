@@ -115,6 +115,10 @@ const getRatingOfNovel = (userId: string, novelId: string) => {
     return axios.get(`${USER_NOVEL_RATING_API}/get-rating/${userId}/${novelId}`)
         .then(response => response.data.result);
 }
+const getBookmarkByChapter = (userId: string, chapterId: string, novelId : string) => {
+    return axios.get(`${USER_NOVEL_BOOKMARK_API}/user/${userId}/chapter/${chapterId}/novel/${novelId}`)
+        .then(response => response.data.result);
+}
 export {
     register,
     getMyInfo,
@@ -136,5 +140,6 @@ export {
     getMyReadingList,
     addBookmark,
     getBookmark,
-    getRatingOfNovel
+    getRatingOfNovel,
+    getBookmarkByChapter,
 };

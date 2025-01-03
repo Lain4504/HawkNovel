@@ -20,4 +20,15 @@ const getAllAds = (page: number, size:number) => {
     return axios.get(`${ADS_API}/get/all?page=${page}&size=${size}`)
         .then((response) => response.data.result);
 };
-export { createAds, updateAds, deleteAds, getAdsById, getAllAds };
+
+const searchNovels = async (request: any) => {
+  try {
+    const response = await axios.get('/search/novel', { params: request });
+    return response.data.result;
+  } catch (error) {
+    console.error('Error fetching novels:', error);
+    throw error;
+  }
+};
+
+export { createAds, updateAds, deleteAds, getAdsById, getAllAds, searchNovels };

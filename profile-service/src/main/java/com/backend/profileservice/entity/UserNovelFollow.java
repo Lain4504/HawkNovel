@@ -1,12 +1,13 @@
 package com.backend.profileservice.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Setter
 @Getter
@@ -17,6 +18,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class UserNovelFollow {
     @MongoId
     String id;
+
     String userId;
     String novelId;
 }

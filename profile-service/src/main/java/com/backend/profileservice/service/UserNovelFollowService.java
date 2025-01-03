@@ -1,5 +1,10 @@
 package com.backend.profileservice.service;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserNovelFollowRequest;
 import com.backend.profileservice.dto.response.NovelDetailsResponse;
@@ -9,12 +14,9 @@ import com.backend.profileservice.mapper.UserNovelFollowMapper;
 import com.backend.profileservice.repository.UserNovelFollowRepository;
 import com.backend.profileservice.repository.UserProfileRepository;
 import com.backend.profileservice.repository.httpclient.NovelServiceClient;
+
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
 
 @Service
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)

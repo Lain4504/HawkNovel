@@ -1,9 +1,10 @@
 package com.backend.profileservice.entity;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class UserNovelRating {
     @MongoId
     String id;
+
     String userId;
     String novelId;
     Integer rating;

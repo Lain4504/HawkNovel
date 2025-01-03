@@ -1,5 +1,13 @@
 package com.backend.profileservice.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserReadHistoryRequest;
 import com.backend.profileservice.dto.response.NovelDetailsResponse;
@@ -9,16 +17,10 @@ import com.backend.profileservice.mapper.UserReadHistoryMapper;
 import com.backend.profileservice.repository.UserProfileRepository;
 import com.backend.profileservice.repository.UserReadHistoryRepository;
 import com.backend.profileservice.repository.httpclient.NovelServiceClient;
+
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -38,7 +40,8 @@ public class UserReadHistoryService {
     }
 
     public UserReadHistoryResponse createOrUpdateHistory(UserReadHistoryRequest userReadHistory) {
-        Optional<UserReadHistory> existingHistory = userReadHistoryRepository.findByUserIdAndNovelId(userReadHistory.getUserId(), userReadHistory.getNovelId());
+        Optional<UserReadHistory> existingHistory = userReadHistoryRepository.findByUserIdAndNovelId(
+                userReadHistory.getUserId(), userReadHistory.getNovelId());
         if (existingHistory.isPresent()) {
             UserReadHistory historyToUpdate = existingHistory.get();
             userReadHistoryMapper.updateUserReadHistory(historyToUpdate, userReadHistory);
@@ -54,8 +57,7 @@ public class UserReadHistoryService {
     }
 
     public Optional<UserReadHistoryResponse> getById(String id) {
-        return userReadHistoryRepository.findById(id)
-                .map(userReadHistoryMapper::toUserReadHistoryResponse);
+        return userReadHistoryRepository.findById(id).map(userReadHistoryMapper::toUserReadHistoryResponse);
     }
 
     public PageResponse<NovelDetailsResponse> getReadHistoryWithDetails(String userId, int page, int size) {
@@ -76,8 +78,8 @@ public class UserReadHistoryService {
                     .build();
         }
         List<NovelDetailsResponse> novelDetails = client.getNovelDetails(novelIds);
-        Map<String, UserReadHistory> readHistoryMap = readHistoryResponse.stream()
-                .collect(Collectors.toMap(UserReadHistory::getNovelId, history -> history));
+        Map<String, UserReadHistory> readHistoryMap =
+                readHistoryResponse.stream().collect(Collectors.toMap(UserReadHistory::getNovelId, history -> history));
         List<NovelDetailsResponse> enrichedNovelDetails = novelDetails.stream()
                 .map(detail -> {
                     UserReadHistory history = readHistoryMap.get(detail.getNovelId());
@@ -85,7 +87,8 @@ public class UserReadHistoryService {
                     detail.setNovelChapterId(history.getNovelChapterId());
                     detail.setNovelChapterTitle(history.getNovelChapterTitle());
                     return detail;
-                }).toList();
+                })
+                .toList();
         int start = Math.min((page - 1) * size, enrichedNovelDetails.size());
         int end = Math.min(start + size, enrichedNovelDetails.size());
         List<NovelDetailsResponse> pagedNovelDetails = enrichedNovelDetails.subList(start, end);

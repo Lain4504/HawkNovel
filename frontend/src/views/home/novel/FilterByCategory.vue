@@ -14,7 +14,7 @@ const novels = ref([
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto">
+  <div>
     <!-- Banner -->
     <Banner/>
     <!-- Content -->

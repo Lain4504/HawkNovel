@@ -1,5 +1,13 @@
 package com.backend.profileservice.service;
 
+import java.time.Instant;
+import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserBookmarkRequest;
 import com.backend.profileservice.dto.response.UserBookmarkResponse;
@@ -8,17 +16,14 @@ import com.backend.profileservice.mapper.UserBookmarkMapper;
 import com.backend.profileservice.repository.UserBookmarkRepository;
 import com.backend.profileservice.repository.UserProfileRepository;
 import com.backend.utils.DateTimeFormatter;
+
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
-import java.time.Instant;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class UserBookmarkService {
     UserBookmarkRepository userBookmarkRepository;
@@ -53,7 +58,8 @@ public class UserBookmarkService {
                     var response = userBookmarkMapper.toUserBookmarkResponse(userBookmark);
                     response.setCreated(dateTimeFormatter.format(userBookmark.getCreatedAt()));
                     return response;
-                }).toList();
+                })
+                .toList();
         return PageResponse.<UserBookmarkResponse>builder()
                 .currentPage(page)
                 .pageSize(pageData.getSize())
@@ -61,5 +67,14 @@ public class UserBookmarkService {
                 .totalElements(pageData.getTotalElements())
                 .data(userBookmarks)
                 .build();
+    }
+
+    public List<UserBookmarkResponse> getBookmarkByChapter(String userId, String chapterId, String novelId) {
+        if (!userProfileRepository.existsByUserId(userId)) {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        return userBookmarkRepository.findByUserIdAndNovelChapterIdAndNovelId(userId, chapterId, novelId).stream()
+                .map(userBookmarkMapper::toUserBookmarkResponse)
+                .toList();
     }
 }

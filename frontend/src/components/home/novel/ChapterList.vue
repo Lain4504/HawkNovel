@@ -56,7 +56,7 @@ const truncatedChapterName = (chapterTitle: string) => {
 </script>
 
 <template>
-  <div class="chapter-list p-4 bg-white rounded-lg shadow-md">
+  <div class=" p-4 bg-white rounded-lg shadow-md">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-semibold">Danh sách chương</h2>
       <a-button type="text" @click="$emit('close')">
@@ -76,8 +76,3 @@ const truncatedChapterName = (chapterTitle: string) => {
   </div>
 </template>
 
-<style scoped>
-.chapter-list {
-  padding: 1rem;
-}
-</style>

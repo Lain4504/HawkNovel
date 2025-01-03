@@ -1,16 +1,19 @@
 package com.backend.notificationservice.controller;
 
-import com.backend.event.NotificationEvent;
-import com.backend.notificationservice.service.EmailService;
 import jakarta.mail.MessagingException;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.backend.event.NotificationEvent;
+import com.backend.notificationservice.service.EmailService;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/email")
@@ -42,5 +45,4 @@ public class EmailController {
             log.error("Error sending email to {}: {}", message.getRecipient(), e.getMessage());
         }
     }
-
 }

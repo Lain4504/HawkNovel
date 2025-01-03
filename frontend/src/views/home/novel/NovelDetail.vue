@@ -283,7 +283,7 @@ const handleShareClick = () => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl">
+  <div>
     <a-breadcrumb class="mb-6">
       <a-breadcrumb-item v-for="(item, index) in [
         { label: 'Home', to: { name: 'home' } },
@@ -294,7 +294,7 @@ const handleShareClick = () => {
       </a-breadcrumb-item>
     </a-breadcrumb>
   </div>
-    <div class="max-w-7xl mx-auto p-4">
+    <div class="p-4">
       <div class="flex flex-col md:flex-row gap-6">
         <div class="w-48 flex-shrink-0">
           <img
@@ -376,7 +376,7 @@ const handleShareClick = () => {
         </div>
       </div>
     </div>
-    <div class="w-full max-w-7xl mx-auto mt-10">
+    <div class="w-full mt-10">
       <h2 class="text-xl font-semibold text-gray-800 mb-6">Danh sách chương</h2>
       <div class="space-y-6">
         <div v-for="(volume, volumeIndex) in volumes" :key="volumeIndex"
@@ -425,7 +425,7 @@ const handleShareClick = () => {
         </div>
       </div>
     </div>
-    <div class="container mx-auto p-4 max-w-7xl">
+    <div class="container p-4">
       <div class="flex space-x-4 border-b mb-4">
         <button v-for="(tab, index) in tabs" :key="index"
                 :class="['px-4 py-2 text-sm font-semibold', currentTab === tab ? 'border-b-2 border-[#18A058] text-[#18A058]' : 'text-gray-600']"
@@ -450,7 +450,3 @@ const handleShareClick = () => {
       />
     </div>
 </template>
-
-<style scoped>
-
-</style>

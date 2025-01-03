@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, onBeforeUnmount, onMounted, reactive, ref} from 'vue';
+import {computed, onBeforeUnmount, onMounted, reactive, ref, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {getChapter, getNextChapter, getPreviousChapter, incrementChapterView} from '../../../api/novelChapter';
 import ChapterContent from '../../../components/home/novel/ChapterContent.vue';
@@ -12,11 +12,11 @@ import {
 import CommentSection from "../../../components/home/CommentSection.vue";
 import {getNovel} from "../../../api/novel";
 import {createReadingHistory} from "../../../api/user";
-import store from "../../../store"; // Import the createReadingHistory function
+import store from "../../../store";
 const isAuthenticated = computed(() => store.getters.isAuthenticated); // Use the isAuthenticated computed property
 const route = useRoute();
 const router = useRouter();
-const chapterId = route.params.chapter as string;
+const chapterId = ref(route.params.chapter as string);
 const novelId = route.params.novel as string;
 const chapter = reactive({
   id: '',
@@ -78,6 +78,7 @@ const fetchPreviousChapter = async () => {
   try {
     const response = await getPreviousChapter(chapter.volumeId, parseInt(chapter.chapterNumber));
     await fetchChapter(response.id);
+    chapterId.value = response.id;
     await router.push({name: 'chapter', params: {id: response.id}});
   } catch (error) {
     console.error('Failed to fetch previous chapter:', error);
@@ -88,6 +89,7 @@ const fetchNextChapter = async () => {
   try {
     const response = await getNextChapter(chapter.volumeId, parseInt(chapter.chapterNumber));
     await fetchChapter(response.id);
+    chapterId.value = response.id;
     await router.push({name: 'chapter', params: {id: response.id}});
   } catch (error) {
     console.error('Failed to fetch next chapter:', error);
@@ -116,7 +118,7 @@ const pageSize = ref(10);
 const totalComments = ref(0);
 const fetchComments = async (page: number, size: number) => {
   try {
-    const result = await getAllChapterComments(chapterId, page, size);
+    const result = await getAllChapterComments(chapterId.value, page, size);
     console.log('Comments:', result);
     comments.value = result.data;
     totalComments.value = result.totalElements; // Update to use totalElements from the API response
@@ -135,7 +137,7 @@ const handlePageChange = (page: number) => {
 
 onMounted(() => {
   fetchNovel(novelId);
-  fetchChapter(chapterId);
+  fetchChapter(chapterId.value);
   fetchComments(currentPage.value, pageSize.value);
   if (isAuthenticated.value) {
     window.addEventListener('beforeunload', trackReadingHistory);
@@ -151,12 +153,15 @@ onBeforeUnmount(() => {
     window.removeEventListener('beforeunload', trackReadingHistory);
   }
 });
+
+watch(chapterId, () => {
+  fetchComments(currentPage.value, pageSize.value);
+});
 </script>
 
 <template>
   <ChapterContent :chapter="chapter" :novel="novel" @previous-chapter="fetchPreviousChapter"
                   @next-chapter="fetchNextChapter"/>
-  <div class="max-w-7xl mx-auto">
   <CommentSection :comments="comments" :create-comment-api="createChapterComment"
                   :create-reply-api="createChapterReply" :current-page="currentPage"
                   :fetch-comments="fetchComments"
@@ -170,5 +175,4 @@ onBeforeUnmount(() => {
                   @commentAdded="handleCommentAdded"
                   @pageChange="handlePageChange"
   />
-  </div>
 </template>

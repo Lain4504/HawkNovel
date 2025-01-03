@@ -3,7 +3,6 @@ import {onMounted, ref} from "vue";
 import {deleteNovelCategory, getNovelCategories} from "../../../../api/novelCategory.ts";
 import router from "../../../../router";
 import DynamicDataTable from "../../../../components/admin/DynamicDataTable.vue";
-
 const novelCategoryColumns = [
   {field: "id", headerName: "ID", width: 70},
   {field: "name", headerName: "Tiêu đề", width: 200},

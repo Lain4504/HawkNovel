@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="container mx-auto p-6 bg-white max-w-7xl">
+  <a-layout class="container mx-auto p-6 bg-white">
     <div class="flex justify-between items-center">
       <a-typography-title level="1" style="color: #18A058; font-size: 20px">Điều Khoản Dịch Vụ</a-typography-title>
       <a-typography-text strong>22:28 - 18/04/2020</a-typography-text>
@@ -51,9 +51,6 @@
 </script>
 
 <style scoped>
-.container {
-  background-color: #ffffff;
-}
 
 ul {
   list-style-type: disc;

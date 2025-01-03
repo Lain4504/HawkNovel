@@ -2,8 +2,8 @@
 import {onMounted, ref} from "vue";
 import {deleteNovel, getMyNovels} from "../../../api/novel";
 import router from "../../../router";
-import DynamicDataTable from "../../../components/admin/DynamicDataTable.vue";
-
+import { defineAsyncComponent } from 'vue';
+const DynamicDataTable = defineAsyncComponent(() => import("../../../components/admin/DynamicDataTable.vue"));
 const novelColumns = [
   {field: "id", headerName: "ID", width: 70},
   {field: "title", headerName: "Tiêu đề", width: 200},
