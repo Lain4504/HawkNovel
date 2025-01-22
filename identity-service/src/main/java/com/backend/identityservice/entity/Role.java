@@ -1,5 +1,6 @@
 package com.backend.identityservice.entity;
 
+import com.backend.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -8,14 +9,13 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Role {
+public class Role extends BaseEntity {
     @Id
     String name;
     String description;

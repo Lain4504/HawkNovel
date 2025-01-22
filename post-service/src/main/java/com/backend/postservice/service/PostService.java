@@ -8,7 +8,7 @@ import com.backend.postservice.entity.PostCategory;
 import com.backend.postservice.mapper.PostMapper;
 import com.backend.postservice.repository.PostCategoryRepository;
 import com.backend.postservice.repository.PostRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,7 +29,7 @@ public class PostService {
     PostRepository postRepository;
     PostCategoryRepository postCategoryRepository;
     PostMapper postMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public PostResponse createPost(PostRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

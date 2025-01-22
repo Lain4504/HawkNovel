@@ -1,6 +1,6 @@
 package com.backend.novelservice.entity;
 
-import com.backend.enums.NovelStatusEnum;
+import com.backend.novelservice.enums.NovelStatusEnum;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToMany;

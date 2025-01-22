@@ -6,7 +6,7 @@ import com.backend.postservice.dto.response.PostCategoryResponse;
 import com.backend.postservice.entity.PostCategory;
 import com.backend.postservice.mapper.PostCategoryMapper;
 import com.backend.postservice.repository.PostCategoryRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ import java.util.List;
 public class PostCategoryService {
     PostCategoryRepository postCategoryRepository;
     PostCategoryMapper postCategoryMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public PostCategoryResponse createPostCategory(PostCategoryRequest postCategory) {
         PostCategory newPostCategory = PostCategory.builder()

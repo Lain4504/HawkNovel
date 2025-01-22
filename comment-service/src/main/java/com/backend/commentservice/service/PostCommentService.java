@@ -14,7 +14,7 @@ import com.backend.commentservice.repository.httpclient.UserProfileClient;
 import com.backend.commentservice.repository.httpclient.UserProfileResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.event.NotificationEvent;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,7 +40,7 @@ public class PostCommentService {
     PostCommentReplyMapper postCommentReplyMapper;
     UserProfileClient userProfileClient;
     KafkaTemplate<String, Object> kafkaTemplate;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public PageResponse<PostCommentResponse> getAllComments(String postId, int page, int size) {
         Sort sort = Sort.by(Sort.Order.desc("createdDate"));

@@ -44,14 +44,14 @@ public class SearchService {
         Map<String, Object> novelData = (Map<String, Object>) data.getParam().get("data");
         Novel novel = mapToNovel(novelData);
         searchRepository.save(novel);
-        System.out.println("Handled novel update: " + novel);
+        log.info("Handled novel update: " + novel);
     }
 
     public void handleDelete(NovelDataSenderEvent data) {
         Map<String, Object> novelData = (Map<String, Object>) data.getParam().get("data");
         Novel novel = mapToNovel(novelData);
         searchRepository.deleteById(novel.getId());
-        System.out.println("Handled novel deletion: " + novel.getId());
+        log.info("Handled novel deletion: " + novel.getId());
     }
 
     private Novel mapToNovel(Map<String, Object> novelData) {

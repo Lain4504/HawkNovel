@@ -1,5 +1,7 @@
 package com.backend.identityservice.controller;
 
+import com.backend.dto.request.PagingRequest;
+import com.backend.dto.request.SortRequest;
 import com.backend.dto.response.ApiResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.identityservice.dto.request.UserCreationRequest;
@@ -29,11 +31,19 @@ public class UserController {
     @GetMapping
     ApiResponse<PageResponse<UserResponse>> getUsers(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size,
+            @RequestParam(value = "sortField", required = false, defaultValue = "createdDate") String sortField,
+            @RequestParam(value = "sortOrder", required = false, defaultValue = "desc") String sortOrder
     ) {
-
+        PagingRequest pagingRequest = new PagingRequest();
+        pagingRequest.setCurrentPage(page);
+        pagingRequest.setPageSize(size);
+        SortRequest sortRequest = new SortRequest();
+        sortRequest.setField(sortField);
+        sortRequest.setOrder(sortOrder);
+        pagingRequest.setSort(sortRequest);
         return ApiResponse.<PageResponse<UserResponse>>builder()
-                .result(userService.getAllUsers(page, size))
+                .result(userService.getAllUsers(pagingRequest))
                 .build();
     }
 

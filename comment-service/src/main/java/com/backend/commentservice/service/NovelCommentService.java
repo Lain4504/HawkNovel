@@ -14,7 +14,7 @@ import com.backend.commentservice.repository.httpclient.UserProfileClient;
 import com.backend.commentservice.repository.httpclient.UserProfileResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.event.NotificationEvent;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -39,7 +39,7 @@ public class NovelCommentService {
     NovelCommentMapper novelCommentMapper;
     NovelCommentReplyMapper novelCommentReplyMapper;
     UserProfileClient userProfileClient;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
     KafkaTemplate<String, Object> kafkaTemplate;
 
     public PageResponse<NovelCommentResponse> getAllComments(String novelId, int page, int size) {

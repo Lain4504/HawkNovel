@@ -1,5 +1,6 @@
 package com.backend.dto.response;
 
+import com.backend.dto.request.PagingRequest;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,10 +13,13 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PageResponse<T> {
-    int currentPage;
-    int totalPages;
-    int pageSize;
+
+    PagingRequest paging;
+
     long totalElements;
+
+    int totalPages;
+
     @Builder.Default
     List<T> data = Collections.emptyList();
 }

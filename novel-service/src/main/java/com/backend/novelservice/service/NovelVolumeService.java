@@ -7,7 +7,7 @@ import com.backend.novelservice.entity.NovelVolume;
 import com.backend.novelservice.mapper.NovelVolumeMapper;
 import com.backend.novelservice.repository.NovelRepository;
 import com.backend.novelservice.repository.NovelVolumeRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 public class NovelVolumeService {
     NovelVolumeRepository novelVolumeRepository;
     NovelVolumeMapper novelVolumeMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
     NovelRepository novelRepository;
 
     public NovelVolumeResponse createNovelVolume(String novelId, NovelVolumeRequest request) {

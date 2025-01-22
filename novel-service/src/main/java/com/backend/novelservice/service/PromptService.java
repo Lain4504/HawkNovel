@@ -2,11 +2,10 @@ package com.backend.novelservice.service;
 
 import com.backend.dto.response.PageResponse;
 import com.backend.novelservice.dto.request.PromptRequest;
-import com.backend.novelservice.dto.response.NovelResponse;
 import com.backend.novelservice.dto.response.PromptResponse;
 import com.backend.novelservice.mapper.PromptMapper;
 import com.backend.novelservice.repository.PromptRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ import java.util.List;
 public class PromptService {
     PromptRepository promptRepository;
     PromptMapper promptMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public PromptResponse createPrompt(PromptRequest request){
         var prompt = promptMapper.toPrompt(request);

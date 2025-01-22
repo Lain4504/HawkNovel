@@ -1,7 +1,7 @@
 package com.backend.novelservice.service;
 
 import com.backend.dto.response.PageResponse;
-import com.backend.enums.ChapterStatusEnum;
+import com.backend.novelservice.enums.ChapterStatusEnum;
 import com.backend.event.NovelDataSenderEvent;
 import com.backend.novelservice.dto.request.NovelChapterRequest;
 import com.backend.novelservice.dto.response.NovelChapterResponse;
@@ -14,7 +14,7 @@ import com.backend.novelservice.mapper.NovelChapterMapper;
 import com.backend.novelservice.repository.NovelChapterRepository;
 import com.backend.novelservice.repository.NovelRepository;
 import com.backend.novelservice.repository.NovelVolumeRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class NovelChapterService {
     NovelChapterRepository novelChapterRepository;
     NovelChapterMapper novelChapterMapper;
     NovelRepository novelRepository;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
     NovelVolumeRepository novelVolumeRepository;
     KafkaTemplate<String, Object> kafkaTemplate;
     private int sumChapterCountByNovelId(String novelId) {

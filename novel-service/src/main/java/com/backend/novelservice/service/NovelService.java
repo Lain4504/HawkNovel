@@ -1,7 +1,7 @@
 package com.backend.novelservice.service;
 
 import com.backend.dto.response.PageResponse;
-import com.backend.enums.NovelStatusEnum;
+import com.backend.novelservice.enums.NovelStatusEnum;
 import com.backend.event.NovelDataSenderEvent;
 import com.backend.novelservice.dto.request.NovelCreationRequest;
 import com.backend.novelservice.dto.request.NovelUpdateRequest;
@@ -14,7 +14,7 @@ import com.backend.novelservice.entity.NovelCategory;
 import com.backend.novelservice.mapper.NovelMapper;
 import com.backend.novelservice.repository.NovelCategoryRepository;
 import com.backend.novelservice.repository.NovelRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -42,7 +42,7 @@ public class NovelService {
     NovelRepository novelRepository;
     NovelCategoryRepository novelCategoryRepository;
     NovelMapper novelMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
     ImageService imageService;
     KafkaTemplate<String, Object> kafkaTemplate;
 

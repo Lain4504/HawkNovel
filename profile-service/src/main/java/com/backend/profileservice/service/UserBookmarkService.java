@@ -3,6 +3,7 @@ package com.backend.profileservice.service;
 import java.time.Instant;
 import java.util.List;
 
+import com.backend.utils.DateTimeFormatterUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,6 @@ import com.backend.profileservice.entity.UserBookmark;
 import com.backend.profileservice.mapper.UserBookmarkMapper;
 import com.backend.profileservice.repository.UserBookmarkRepository;
 import com.backend.profileservice.repository.UserProfileRepository;
-import com.backend.utils.DateTimeFormatter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,7 +29,7 @@ public class UserBookmarkService {
     UserBookmarkRepository userBookmarkRepository;
     UserProfileRepository userProfileRepository;
     UserBookmarkMapper userBookmarkMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public UserBookmarkResponse saveUserBookmark(String userId, UserBookmarkRequest request) {
         if (!userProfileRepository.existsByUserId(userId)) {

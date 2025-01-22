@@ -1,5 +1,6 @@
 package com.backend.identityservice.service;
 
+import com.backend.dto.request.PagingRequest;
 import com.backend.dto.response.PageResponse;
 import com.backend.event.NotificationEvent;
 import com.backend.exception.AppException;
@@ -56,7 +57,7 @@ public class UserService {
         roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
         user.setRoles(roles);
         user.setState(UserState.INACTIVE);
-        user.setCreatedDate(java.time.LocalDate.now());
+        user.setCreatedAt(java.time.LocalDate.now());
         user = userRepository.save(user);
         var profileRequest = profileMapper.toProfileCreationRequest(request);
         profileRequest.setUserId(user.getId());
@@ -91,14 +92,12 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    public PageResponse<UserResponse> getAllUsers(int page, int size) {
-        Sort sort = Sort.by(Sort.Order.desc("createdDate"));
-        var pageData = userRepository.findAll(PageRequest.of(page - 1, size, sort));
+    public PageResponse<UserResponse> getAllUsers(PagingRequest pagingRequest) {
+        Sort sort = Sort.by(Sort.Order.desc(pagingRequest.getSort().getField()));
+        var pageData = userRepository.findAll(PageRequest.of(pagingRequest.getCurrentPage() - 1, pagingRequest.getPageSize(), sort));
         var userList = pageData.getContent().stream().map(userMapper::toUserResponse).collect(Collectors.toList());
         return PageResponse.<UserResponse>builder()
-                .currentPage(page)
-                .pageSize(pageData.getSize())
+                .paging(pagingRequest)
                 .totalPages(pageData.getTotalPages())
                 .totalElements(pageData.getTotalElements())
                 .data(userList)
