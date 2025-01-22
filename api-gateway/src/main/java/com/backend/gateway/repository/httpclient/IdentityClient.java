@@ -1,4 +1,4 @@
-package com.backend.gateway.repository;
+package com.backend.gateway.httpclient;
 
 import com.backend.dto.response.ApiResponse;
 import com.backend.gateway.dto.request.IntrospectRequest;
