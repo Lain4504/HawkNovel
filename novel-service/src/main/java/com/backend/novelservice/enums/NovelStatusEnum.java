@@ -1,5 +1,6 @@
 package com.backend.novelservice.enums;
 
+
 public enum NovelStatusEnum {
     DRAFT,
     REJECTED,

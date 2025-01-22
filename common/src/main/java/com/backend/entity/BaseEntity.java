@@ -13,4 +13,5 @@ public class BaseEntity implements Serializable {
      String updatedBy;
      LocalDateTime createdAt;
      LocalDateTime updatedAt;
+
 }

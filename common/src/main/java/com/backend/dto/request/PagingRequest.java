@@ -12,4 +12,5 @@ public class PagingRequest {
      int pageSize;
 
      SortRequest sort;
+
 }
