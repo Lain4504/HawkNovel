@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.backend.utils.DateTimeFormatterUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,7 +19,6 @@ import com.backend.profileservice.mapper.UserReviewMapper;
 import com.backend.profileservice.repository.UserProfileRepository;
 import com.backend.profileservice.repository.UserReviewRepository;
 import com.backend.profileservice.repository.httpclient.NovelServiceClient;
-import com.backend.utils.DateTimeFormatter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,7 +29,7 @@ import lombok.experimental.FieldDefaults;
 public class UserReviewService {
     UserReviewRepository userReviewRepository;
     UserReviewMapper userReviewMapper;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
     NovelServiceClient novelServiceClient;
     UserProfileRepository userProfileRepository;
 

@@ -2,6 +2,7 @@ package com.backend.notificationservice.service;
 
 import java.time.Instant;
 
+import com.backend.utils.DateTimeFormatterUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,7 +13,6 @@ import com.backend.event.NotificationEvent;
 import com.backend.notificationservice.entity.Notification;
 import com.backend.notificationservice.enums.NotificationTemplate;
 import com.backend.notificationservice.repository.NotificationRepository;
-import com.backend.utils.DateTimeFormatter;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class NotificationService {
     NotificationRepository notificationRepository;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public void sendNotification(NotificationEvent message) {
         String template;

@@ -2,12 +2,13 @@ package com.backend.identityservice.entity;
 
 import com.backend.entity.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -16,11 +17,12 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Role extends BaseEntity {
+public class UserToken extends BaseEntity {
     @Id
-    String name;
-    String description;
-    @ManyToMany
-    Set<Permission> permissions;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    String id;
+    String userId;
+    String accessToken;
+    String refreshToken;
+    LocalDateTime expiryTime;
 }

@@ -6,7 +6,7 @@ import com.backend.novelservice.dto.response.NovelCategoryResponse;
 import com.backend.novelservice.entity.NovelCategory;
 import com.backend.novelservice.mapper.NovelCategoryMapper;
 import com.backend.novelservice.repository.NovelCategoryRepository;
-import com.backend.utils.DateTimeFormatter;
+import com.backend.utils.DateTimeFormatterUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +24,7 @@ import java.util.List;
 public class NovelCategoryService {
     NovelCategoryMapper novelCategoryMapper;
     NovelCategoryRepository novelCategoryRepository;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public NovelCategoryResponse createNovelCategory(NovelCategoryRequest request) {
         NovelCategory newNovelCategory = NovelCategory.builder()

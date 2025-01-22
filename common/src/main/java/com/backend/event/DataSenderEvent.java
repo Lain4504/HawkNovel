@@ -10,7 +10,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class NovelDataSenderEvent {
+public class DataSenderEvent {
     String channel;
     Map<String, Object> param;
 }

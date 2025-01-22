@@ -1,6 +1,6 @@
 package com.backend.searchservice.event;
 
-import com.backend.event.NovelDataSenderEvent;
+import com.backend.event.DataSenderEvent;
 import com.backend.searchservice.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,16 +16,16 @@ public class NovelInfoKafkaConsumer {
     SearchService searchService;
 
     @KafkaListener(topics = "novel-create")
-    public void consumeCreate(NovelDataSenderEvent data) {
+    public void consumeCreate(DataSenderEvent data) {
         searchService.handleCreate(data);
     }
     @KafkaListener(topics = "novel-update")
-    public void consumeUpdate(NovelDataSenderEvent data) {
+    public void consumeUpdate(DataSenderEvent data) {
         searchService.handleUpdate(data);
     }
 
     @KafkaListener(topics = "novel-delete")
-    public void consumeDelete(NovelDataSenderEvent data) {
+    public void consumeDelete(DataSenderEvent data) {
         searchService.handleDelete(data);
     }
 

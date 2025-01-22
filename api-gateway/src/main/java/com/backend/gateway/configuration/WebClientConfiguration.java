@@ -1,6 +1,6 @@
 package com.backend.gateway.configuration;
 
-import com.backend.gateway.repository.IdentityClient;
+import com.backend.gateway.repository.httpclient.IdentityClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

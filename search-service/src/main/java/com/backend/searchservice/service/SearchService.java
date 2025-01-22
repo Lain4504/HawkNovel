@@ -7,7 +7,7 @@ import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.json.JsonData;
-import com.backend.event.NovelDataSenderEvent;
+import com.backend.event.DataSenderEvent;
 import com.backend.searchservice.dto.request.NovelSearchRequest;
 import com.backend.searchservice.dto.response.NovelSearchResponse;
 import com.backend.searchservice.entity.Novel;
@@ -32,7 +32,7 @@ public class SearchService {
     SearchRepository searchRepository;
     ElasticsearchClient elasticsearchClient;
 
-    public void handleCreate(NovelDataSenderEvent data) {
+    public void handleCreate(DataSenderEvent data) {
         Map<String, Object> novelData = (Map<String, Object>) data.getParam().get("data");
         log.info("Novel data: " + novelData);
         Novel novel = mapToNovel(novelData);
@@ -40,18 +40,18 @@ public class SearchService {
         log.info("Handled novel creation: " + novel);
     }
 
-    public void handleUpdate(NovelDataSenderEvent data) {
+    public void handleUpdate(DataSenderEvent data) {
         Map<String, Object> novelData = (Map<String, Object>) data.getParam().get("data");
         Novel novel = mapToNovel(novelData);
         searchRepository.save(novel);
-        System.out.println("Handled novel update: " + novel);
+        log.info("Handled novel update: " + novel);
     }
 
-    public void handleDelete(NovelDataSenderEvent data) {
+    public void handleDelete(DataSenderEvent data) {
         Map<String, Object> novelData = (Map<String, Object>) data.getParam().get("data");
         Novel novel = mapToNovel(novelData);
         searchRepository.deleteById(novel.getId());
-        System.out.println("Handled novel deletion: " + novel.getId());
+        log.info("Handled novel deletion: " + novel.getId());
     }
 
     private Novel mapToNovel(Map<String, Object> novelData) {

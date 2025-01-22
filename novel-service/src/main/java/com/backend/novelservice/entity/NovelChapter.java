@@ -1,6 +1,6 @@
 package com.backend.novelservice.entity;
 
-import com.backend.enums.ChapterStatusEnum;
+import com.backend.novelservice.enums.ChapterStatusEnum;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;

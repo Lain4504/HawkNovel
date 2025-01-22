@@ -3,6 +3,7 @@ package com.backend.profileservice.service;
 import java.time.Instant;
 import java.util.List;
 
+import com.backend.utils.DateTimeFormatterUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,6 @@ import com.backend.profileservice.entity.Image;
 import com.backend.profileservice.entity.UserProfile;
 import com.backend.profileservice.mapper.UserProfileMapper;
 import com.backend.profileservice.repository.UserProfileRepository;
-import com.backend.utils.DateTimeFormatter;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class UserProfileService {
     UserProfileRepository userProfileRepository;
     UserProfileMapper userProfileMapper;
     ImageService imageService;
-    DateTimeFormatter dateTimeFormatter;
+    DateTimeFormatterUtils dateTimeFormatter;
 
     public UserProfileResponse createProfile(ProfileCreationRequest request) {
         UserProfile userProfile = userProfileMapper.toUserProfile(request);

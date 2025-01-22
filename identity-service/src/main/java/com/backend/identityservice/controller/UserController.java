@@ -1,11 +1,14 @@
 package com.backend.identityservice.controller;
 
+import com.backend.dto.request.PagingRequest;
+import com.backend.dto.request.SortRequest;
 import com.backend.dto.response.ApiResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.identityservice.dto.request.UserCreationRequest;
-import com.backend.identityservice.dto.request.UserUpdateRequest;
+import com.backend.identityservice.dto.request.UserUpdateRoleRequest;
 import com.backend.identityservice.dto.response.UserResponse;
 import com.backend.identityservice.service.UserService;
+import com.backend.identityservice.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +26,26 @@ public class UserController {
 
     @PostMapping("/registration")
     ApiResponse<UserResponse> createUser(@Valid @RequestBody UserCreationRequest request) {
-        return ApiResponse.<UserResponse>builder().result(userService.createUser(request)).build();
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.createUser(request))
+                .message("User created successfully")
+                .build();
     }
 
     @GetMapping
     ApiResponse<PageResponse<UserResponse>> getUsers(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+            @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int size,
+            @RequestParam(value = "sortField", required = false, defaultValue = "createdDate") String sortField,
+            @RequestParam(value = "sortOrder", required = false, defaultValue = "desc") String sortOrder
     ) {
-
+        PagingRequest pagingRequest = new PagingRequest(
+                page,
+                size,
+                new SortRequest(sortField, sortOrder)
+        );
         return ApiResponse.<PageResponse<UserResponse>>builder()
-                .result(userService.getAllUsers(page, size))
+                .result(userService.getAllUsers(pagingRequest))
                 .build();
     }
 
@@ -43,7 +55,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    ApiResponse<UserResponse> updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRequest request) {
+    ApiResponse<UserResponse> updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRoleRequest request) {
         return ApiResponse.<UserResponse>builder().result(userService.updateUser(userId, request)).build();
     }
 

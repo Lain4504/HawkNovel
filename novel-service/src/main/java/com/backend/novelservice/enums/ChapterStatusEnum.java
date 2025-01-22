@@ -1,4 +1,4 @@
-package com.backend.enums;
+package com.backend.novelservice.enums;
 
 public enum ChapterStatusEnum {
     DRAFT,

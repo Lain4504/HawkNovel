@@ -1,4 +1,4 @@
-package com.backend.gateway.repository;
+package com.backend.gateway.repository.httpclient;
 
 import com.backend.dto.response.ApiResponse;
 import com.backend.gateway.dto.request.IntrospectRequest;
@@ -11,4 +11,6 @@ import reactor.core.publisher.Mono;
 public interface IdentityClient {
     @PostExchange(value = "/auth/introspect", contentType = MediaType.APPLICATION_JSON_VALUE)
     Mono<ApiResponse<IntrospectResponse>> introspect(@RequestBody IntrospectRequest request);
+
+
 }

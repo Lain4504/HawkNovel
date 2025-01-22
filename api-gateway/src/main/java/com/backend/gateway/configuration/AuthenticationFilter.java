@@ -1,7 +1,7 @@
 package com.backend.gateway.configuration;
 
 import com.backend.dto.response.ApiResponse;
-import com.backend.gateway.service.IdentityService;
+import com.backend.gateway.service.AccessControlChecker;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
@@ -31,7 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PACKAGE, makeFinal = true)
 public class AuthenticationFilter implements GlobalFilter, Ordered {
-    IdentityService identityService;
+    AccessControlChecker accessControlChecker;
     ObjectMapper objectMapper;
 
     @NonFinal
@@ -76,7 +76,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         String token = authHeader.getFirst().replace("Bearer ", "");
         log.info("Token: {}", token);
 
-        return identityService.introspect(token).flatMap(introspectResponse -> {
+        return accessControlChecker.introspect(token).flatMap(introspectResponse -> {
             if (introspectResponse.getResult().isValid())
                 return chain.filter(exchange);
             else
