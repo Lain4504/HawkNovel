@@ -18,4 +18,5 @@ public class Permission extends BaseEntity {
     @Id
     String name;
     String description;
+    boolean isDeleted;
 }

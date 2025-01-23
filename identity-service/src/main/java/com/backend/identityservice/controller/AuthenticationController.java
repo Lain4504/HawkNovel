@@ -4,7 +4,7 @@ import com.backend.dto.response.ApiResponse;
 import com.backend.identityservice.dto.request.*;
 import com.backend.identityservice.dto.response.AuthenticationResponse;
 import com.backend.identityservice.dto.response.IntrospectResponse;
-import com.backend.identityservice.service.AuthenticationService;
+import com.backend.identityservice.service.impl.AuthenticationServiceImpl;
 import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,59 +20,72 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
-    AuthenticationService authenticationService;
+    AuthenticationServiceImpl authenticationServiceImpl;
 
     @PostMapping("/outbound/authentication")
     ApiResponse<AuthenticationResponse> outboundAuthenticate(@RequestParam("code") String code) {
-        var result = authenticationService.outboundAuthenticate(code);
-        return ApiResponse.<AuthenticationResponse>builder().result(result).build();
+        var result = authenticationServiceImpl.outboundAuthenticate(code);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
     }
 
     @PostMapping("/token")
-    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-        var result = authenticationService.authenticate(request);
-        return ApiResponse.<AuthenticationResponse>builder().result(result).build();
+    ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
+        var result = authenticationServiceImpl.authenticate(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
     }
 
     @PostMapping("/introspect")
-    ApiResponse<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request) throws JOSEException, ParseException {
-        var result = authenticationService.introspect(request);
-        return ApiResponse.<IntrospectResponse>builder().result(result).build();
+    ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request) throws JOSEException, ParseException {
+        var result = authenticationServiceImpl.introspect(request);
+        return ApiResponse.<IntrospectResponse>builder()
+                .result(result)
+                .build();
     }
 
     @PostMapping("/refresh")
-    ApiResponse<AuthenticationResponse> authenticate(@RequestBody RefreshRequest request) throws ParseException, JOSEException {
-        var result = authenticationService.refreshToken(request);
-        return ApiResponse.<AuthenticationResponse>builder().result(result).build();
+    ApiResponse<AuthenticationResponse> refreshAccessToken() throws ParseException, JOSEException {
+        var result = authenticationServiceImpl.refreshAccessToken();
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
     }
 
     @PostMapping("/logout")
-    public ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
-        authenticationService.logout(request);
-        return ApiResponse.<Void>builder().build();
+    public ApiResponse<Void> logout() throws ParseException, JOSEException {
+        authenticationServiceImpl.logout();
+        return ApiResponse.<Void>builder()
+                .build();
     }
 
     @PostMapping("/change-password")
     ApiResponse<Void> changePassword(@RequestBody ChangePasswordRequest request) {
-        authenticationService.changePassword(request);
-        return ApiResponse.<Void>builder().build();
+        authenticationServiceImpl.changePassword(request);
+        return ApiResponse.<Void>builder()
+                .build();
     }
 
     @PostMapping("/reset-password")
     ApiResponse<Void> resetPassword(@RequestBody ResetPasswordRequest request) throws ParseException, JOSEException {
-        authenticationService.resetPassword(request);
-        return ApiResponse.<Void>builder().build();
+        authenticationServiceImpl.resetPassword(request);
+        return ApiResponse.<Void>builder()
+                .build();
     }
 
     @PostMapping("/forgot-password")
     ApiResponse<Void> forgotPassword(@RequestBody ForgotPasswordRequest request) {
-        authenticationService.forgotPassword(request);
-        return ApiResponse.<Void>builder().build();
+        authenticationServiceImpl.forgotPassword(request);
+        return ApiResponse.<Void>builder()
+                .build();
     }
 
     @PostMapping("/active-account")
     ApiResponse<Void> activeAccount(@RequestBody ActivationTokenRequest request) {
-        authenticationService.activeAccount(request);
-        return ApiResponse.<Void>builder().build();
+        authenticationServiceImpl.activeAccount(request);
+        return ApiResponse.<Void>builder()
+                .build();
     }
 }

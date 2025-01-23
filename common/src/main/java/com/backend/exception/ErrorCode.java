@@ -31,8 +31,13 @@ public enum ErrorCode {
     FILE_NAME_IS_EMPTY("M1012", "File name must not be null", HttpStatus.BAD_REQUEST),
     FILE_EXTENSION_INVALID("M1013", "File extension is invalid", HttpStatus.BAD_REQUEST),
     FILE_SIZE_INVALID("M1014", "File size is invalid", HttpStatus.BAD_REQUEST),
-    IMAGE_NOT_FOUND("M1015", "Image not found", HttpStatus.NOT_FOUND);
+    IMAGE_NOT_FOUND("M1015", "Image not found", HttpStatus.NOT_FOUND),
+    DATA_NOT_FOUND("M1015" , "Data not found", HttpStatus.NOT_FOUND ),
 
+    //Permission and Role errors
+    PERMISSION_NOT_FOUND("M1017", "Permission not found", HttpStatus.NOT_FOUND),
+    ROLE_NOT_FOUND("M1018", "Role not found", HttpStatus.NOT_FOUND),
+        ;
     private final String code;
     private final String message;
     private final HttpStatusCode statusCode;

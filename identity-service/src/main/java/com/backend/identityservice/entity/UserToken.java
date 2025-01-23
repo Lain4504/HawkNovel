@@ -1,10 +1,7 @@
 package com.backend.identityservice.entity;
 
 import com.backend.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,10 +16,12 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class UserToken extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     String userId;
+    @Column(length = 1024)
     String accessToken;
+    @Column(length = 1024)
     String refreshToken;
     LocalDateTime expiryTime;
 }

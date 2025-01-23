@@ -1,4 +1,4 @@
-package com.backend.identityservice.service;
+package com.backend.identityservice.service.impl;
 
 import com.backend.dto.request.PagingRequest;
 import com.backend.dto.response.PageResponse;
@@ -17,6 +17,7 @@ import com.backend.identityservice.mapper.UserMapper;
 import com.backend.identityservice.repository.RoleRepository;
 import com.backend.identityservice.repository.UserRepository;
 import com.backend.identityservice.repository.httpclient.ProfileClient;
+import com.backend.identityservice.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
     ProfileClient profileClient;
     ProfileMapper profileMapper;
     KafkaTemplate<String, Object> kafkaTemplate;
-    AuthenticationService authenticationService;
+    AuthenticationServiceImpl authenticationServiceImpl;
 
     @Transactional
     @Override
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
         var profileRequest = profileMapper.toProfileCreationRequest(request);
         profileRequest.setUserId(user.getId());
         profileClient.createProfile(profileRequest);
-        var activeToken = authenticationService.activeAccountCode(user.getId());
+        var activeToken = authenticationServiceImpl.activeAccountCode(user.getId());
         var subject = "Activate your account";
         NotificationEvent event = NotificationEvent
                 .builder()

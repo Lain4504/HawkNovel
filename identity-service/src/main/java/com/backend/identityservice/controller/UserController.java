@@ -8,7 +8,6 @@ import com.backend.identityservice.dto.request.UserCreationRequest;
 import com.backend.identityservice.dto.request.UserUpdateRoleRequest;
 import com.backend.identityservice.dto.response.UserResponse;
 import com.backend.identityservice.service.UserService;
-import com.backend.identityservice.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
