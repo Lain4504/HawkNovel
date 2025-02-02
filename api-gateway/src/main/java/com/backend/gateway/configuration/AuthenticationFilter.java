@@ -96,7 +96,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     Mono<Void> unauthenticated(ServerHttpResponse response) {
         ApiResponse<?> apiResponse = ApiResponse.builder()
-                .code("1401")
+                .code("M1401")
                 .message("Unauthenticated")
                 .build();
 
@@ -113,4 +113,5 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         return response.writeWith(
                 Mono.just(response.bufferFactory().wrap(body.getBytes())));
     }
+
 }

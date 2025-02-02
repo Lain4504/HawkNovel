@@ -1,6 +1,7 @@
 package com.backend.profileservice.service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.backend.utils.DateTimeFormatterUtils;
@@ -32,7 +33,7 @@ public class UserProfileService {
 
     public UserProfileResponse createProfile(ProfileCreationRequest request) {
         UserProfile userProfile = userProfileMapper.toUserProfile(request);
-        userProfile.setCreatedAt(Instant.now());
+        userProfile.setCreatedAt(LocalDateTime.now());
         userProfile = userProfileRepository.save(userProfile);
         return userProfileMapper.toUserProfileResponse(userProfile);
     }

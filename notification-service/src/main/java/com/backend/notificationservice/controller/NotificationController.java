@@ -1,5 +1,7 @@
 package com.backend.notificationservice.controller;
 
+import com.backend.dto.request.PagingRequest;
+import com.backend.dto.request.SortRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.MessagingException;
@@ -39,10 +41,17 @@ public class NotificationController {
     @GetMapping("/{userId}")
     ApiResponse<PageResponse<Notification>> getNotificationByUserId(
             @PathVariable("userId") String userId,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+            @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int size,
+            @RequestParam(value = "sortField", required = false, defaultValue = "createdDate") String sortField,
+            @RequestParam(value = "sortOrder", required = false, defaultValue = "desc") String sortOrder){
+        PagingRequest pagingRequest = new PagingRequest(
+                page,
+                size,
+                new SortRequest(sortField, sortOrder)
+        );
         return ApiResponse.<PageResponse<Notification>>builder()
-                .result(notificationService.getNotifications(userId, page, size))
+                .result(notificationService.getNotifications(pagingRequest, userId))
                 .build();
     }
 }

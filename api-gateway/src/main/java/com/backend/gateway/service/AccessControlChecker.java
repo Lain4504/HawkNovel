@@ -17,6 +17,6 @@ public class AccessControlChecker {
     IdentityClient identityClient;
 
     public Mono<ApiResponse<IntrospectResponse>> introspect(String token) {
-        return identityClient.introspect(IntrospectRequest.builder().token(token).build());
+        return identityClient.introspect(IntrospectRequest.builder().accessToken(token).build());
     }
 }

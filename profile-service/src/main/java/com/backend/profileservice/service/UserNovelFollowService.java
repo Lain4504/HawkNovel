@@ -62,24 +62,26 @@ public class UserNovelFollowService {
         }
         List<String> novelIds = getFollowingNovelIds(userId);
         if (novelIds.isEmpty()) {
-            return PageResponse.<NovelDetailsResponse>builder()
-                    .currentPage(page)
-                    .pageSize(size)
-                    .totalPages(0)
-                    .totalElements(0)
-                    .data(Collections.emptyList())
-                    .build();
+//            return PageResponse.<NovelDetailsResponse>builder()
+//                    .currentPage(page)
+//                    .pageSize(size)
+//                    .totalPages(0)
+//                    .totalElements(0)
+//                    .data(Collections.emptyList())
+//                    .build();
+            return null;
         }
         List<NovelDetailsResponse> novelDetails = novelServiceClient.getNovelDetails(novelIds);
         int start = Math.min((page - 1) * size, novelDetails.size());
         int end = Math.min(start + size, novelDetails.size());
         List<NovelDetailsResponse> pagedNovelDetails = novelDetails.subList(start, end);
-        return PageResponse.<NovelDetailsResponse>builder()
-                .currentPage(page)
-                .pageSize(size)
-                .totalPages((int) Math.ceil((double) novelDetails.size() / size))
-                .totalElements(novelDetails.size())
-                .data(pagedNovelDetails)
-                .build();
+//        return PageResponse.<NovelDetailsResponse>builder()
+//                .currentPage(page)
+//                .pageSize(size)
+//                .totalPages((int) Math.ceil((double) novelDetails.size() / size))
+//                .totalElements(novelDetails.size())
+//                .data(pagedNovelDetails)
+//                .build();
+        return null;
     }
 }

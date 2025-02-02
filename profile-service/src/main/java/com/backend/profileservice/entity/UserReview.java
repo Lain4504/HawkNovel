@@ -1,6 +1,7 @@
 package com.backend.profileservice.entity;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -22,6 +23,6 @@ public class UserReview {
     String userName;
     String novelId;
     String review;
-    Instant createdAt;
-    Instant updatedAt;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 }

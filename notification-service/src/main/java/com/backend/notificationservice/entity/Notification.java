@@ -1,6 +1,7 @@
 package com.backend.notificationservice.entity;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -18,12 +19,11 @@ import lombok.experimental.FieldDefaults;
 public class Notification {
     @MongoId
     String id;
-
     String title;
     String content;
     Boolean isRead;
     String notificationType;
     String userId;
-    Instant createdDate;
+    LocalDateTime createdDate;
     String created;
 }

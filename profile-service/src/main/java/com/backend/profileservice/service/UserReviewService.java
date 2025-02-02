@@ -1,6 +1,7 @@
 package com.backend.profileservice.service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class UserReviewService {
             throw new IllegalArgumentException("User does not exist");
         }
         UserReview userReview = userReviewMapper.toUserReview(request);
-        userReview.setCreatedAt(Instant.now());
+        userReview.setCreatedAt(LocalDateTime.now());
         userReviewRepository.save(userReview);
         return userReviewMapper.toUserReviewResponse(userReview);
     }
@@ -84,13 +85,14 @@ public class UserReviewService {
                 })
                 .toList();
 
-        return PageResponse.<UserReviewResponse>builder()
-                .currentPage(page)
-                .pageSize(pageData.getSize())
-                .totalPages(pageData.getTotalPages())
-                .totalElements(pageData.getTotalElements())
-                .data(novelReviews)
-                .build();
+//        return PageResponse.<UserReviewResponse>builder()
+//                .currentPage(page)
+//                .pageSize(pageData.getSize())
+//                .totalPages(pageData.getTotalPages())
+//                .totalElements(pageData.getTotalElements())
+//                .data(novelReviews)
+//                .build();
+        return null;
     }
 
     public PageResponse<UserReviewResponse> getLatestReview(int page, int size) {
@@ -120,12 +122,13 @@ public class UserReviewService {
                     return userReviewResponse;
                 })
                 .toList();
-        return PageResponse.<UserReviewResponse>builder()
-                .currentPage(page)
-                .pageSize(pageData.getSize())
-                .totalPages(pageData.getTotalPages())
-                .totalElements(pageData.getTotalElements())
-                .data(novelReviews)
-                .build();
+//        return PageResponse.<UserReviewResponse>builder()
+//                .currentPage(page)
+//                .pageSize(pageData.getSize())
+//                .totalPages(pageData.getTotalPages())
+//                .totalElements(pageData.getTotalElements())
+//                .data(novelReviews)
+//                .build();
+        return null;
     }
 }

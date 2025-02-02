@@ -2,6 +2,8 @@ package com.backend.identityservice.entity;
 
 import com.backend.entity.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +18,8 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(callSuper = true)
 public class Permission extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
     String name;
     String description;
     boolean isDeleted;

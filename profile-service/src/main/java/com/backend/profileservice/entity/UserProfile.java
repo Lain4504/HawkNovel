@@ -2,6 +2,7 @@ package com.backend.profileservice.entity;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,5 +30,5 @@ public class UserProfile {
     @DBRef
     Image image;
 
-    Instant createdAt;
+    LocalDateTime createdAt;
 }

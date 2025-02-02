@@ -69,13 +69,14 @@ public class UserReadHistoryService {
                 .map(UserReadHistoryResponse::getNovelId)
                 .toList();
         if (novelIds.isEmpty()) {
-            return PageResponse.<NovelDetailsResponse>builder()
-                    .currentPage(page)
-                    .pageSize(size)
-                    .totalPages(0)
-                    .totalElements(0)
-                    .data(Collections.emptyList())
-                    .build();
+//            return PageResponse.<NovelDetailsResponse>builder()
+//                    .currentPage(page)
+//                    .pageSize(size)
+//                    .totalPages(0)
+//                    .totalElements(0)
+//                    .data(Collections.emptyList())
+//                    .build();
+            return null;
         }
         List<NovelDetailsResponse> novelDetails = client.getNovelDetails(novelIds);
         Map<String, UserReadHistory> readHistoryMap =
@@ -92,12 +93,13 @@ public class UserReadHistoryService {
         int start = Math.min((page - 1) * size, enrichedNovelDetails.size());
         int end = Math.min(start + size, enrichedNovelDetails.size());
         List<NovelDetailsResponse> pagedNovelDetails = enrichedNovelDetails.subList(start, end);
-        return PageResponse.<NovelDetailsResponse>builder()
-                .currentPage(page)
-                .pageSize(size)
-                .totalPages((int) Math.ceil((double) enrichedNovelDetails.size() / size))
-                .totalElements(enrichedNovelDetails.size())
-                .data(pagedNovelDetails)
-                .build();
+//        return PageResponse.<NovelDetailsResponse>builder()
+//                .currentPage(page)
+//                .pageSize(size)
+//                .totalPages((int) Math.ceil((double) enrichedNovelDetails.size() / size))
+//                .totalElements(enrichedNovelDetails.size())
+//                .data(pagedNovelDetails)
+//                .build();
+        return null;
     }
 }

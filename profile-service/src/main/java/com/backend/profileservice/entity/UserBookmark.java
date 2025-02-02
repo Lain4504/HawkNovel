@@ -1,6 +1,7 @@
 package com.backend.profileservice.entity;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -25,6 +26,6 @@ public class UserBookmark {
     String novelChapterId;
     String novelChapterTitle;
     String contentNote;
-    Instant createdAt;
-    Instant updatedAt;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 }

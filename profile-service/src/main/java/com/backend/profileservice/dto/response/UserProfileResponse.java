@@ -2,6 +2,7 @@ package com.backend.profileservice.dto.response;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.backend.profileservice.entity.Image;
 
@@ -24,5 +25,5 @@ public class UserProfileResponse {
     String gender;
     Image image;
     String created;
-    Instant createdAt;
+    LocalDateTime createdAt;
 }

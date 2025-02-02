@@ -1,7 +1,9 @@
 package com.backend.notificationservice.service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
+import com.backend.dto.request.PagingRequest;
 import com.backend.utils.DateTimeFormatterUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -86,14 +88,14 @@ public class NotificationService {
                 .isRead(false)
                 .notificationType(message.getChannel())
                 .userId(message.getRecipient())
-                .createdDate(Instant.now())
+                .createdDate(LocalDateTime.now())
                 .build();
         notificationRepository.save(notification);
     }
 
-    public PageResponse<Notification> getNotifications(String userId, int page, int size) {
-        Sort sort = Sort.by(Sort.Order.desc("createdDate"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
+    public PageResponse<Notification> getNotifications(PagingRequest pagingRequest, String userId) {
+        Sort sort = Sort.by(Sort.Order.desc(pagingRequest.getSort().getField()));
+        Pageable pageable = PageRequest.of(pagingRequest.getCurrentPage() - 1, pagingRequest.getPageSize(), sort);
         var pageData = notificationRepository.findAllByUserId(userId, pageable);
         var notificationList = pageData.getContent().stream()
                 .map(notification -> {
@@ -102,8 +104,7 @@ public class NotificationService {
                 })
                 .toList();
         return PageResponse.<Notification>builder()
-                .currentPage(page)
-                .pageSize(pageData.getSize())
+                .paging(pagingRequest)
                 .totalPages(pageData.getTotalPages())
                 .totalElements(pageData.getTotalElements())
                 .data(notificationList)

@@ -1,6 +1,7 @@
 package com.backend.profileservice.service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.backend.utils.DateTimeFormatterUtils;
@@ -36,8 +37,8 @@ public class UserBookmarkService {
             throw new IllegalArgumentException("User does not exist");
         }
         UserBookmark userBookmark = userBookmarkMapper.toUserBookmark(request);
-        userBookmark.setCreatedAt(Instant.now());
-        userBookmark.setUpdatedAt(Instant.now());
+        userBookmark.setCreatedAt(LocalDateTime.now());
+        userBookmark.setUpdatedAt(LocalDateTime.now());
         userBookmark = userBookmarkRepository.save(userBookmark);
         return userBookmarkMapper.toUserBookmarkResponse(userBookmark);
     }
@@ -47,26 +48,27 @@ public class UserBookmarkService {
     }
 
     public PageResponse<UserBookmarkResponse> getUserBookmarks(String userId, int page, int size) {
-        if (!userProfileRepository.existsByUserId(userId)) {
-            throw new IllegalArgumentException("User does not exist");
-        }
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
-        var pageData = userBookmarkRepository.findAllByUserId(userId, pageable);
-        var userBookmarks = pageData.getContent().stream()
-                .map(userBookmark -> {
-                    var response = userBookmarkMapper.toUserBookmarkResponse(userBookmark);
-                    response.setCreated(dateTimeFormatter.format(userBookmark.getCreatedAt()));
-                    return response;
-                })
-                .toList();
-        return PageResponse.<UserBookmarkResponse>builder()
-                .currentPage(page)
-                .pageSize(pageData.getSize())
-                .totalPages(pageData.getTotalPages())
-                .totalElements(pageData.getTotalElements())
-                .data(userBookmarks)
-                .build();
+//        if (!userProfileRepository.existsByUserId(userId)) {
+//            throw new IllegalArgumentException("User does not exist");
+//        }
+//        Sort sort = Sort.by(Sort.Order.desc("createdAt"));
+//        Pageable pageable = PageRequest.of(page - 1, size, sort);
+//        var pageData = userBookmarkRepository.findAllByUserId(userId, pageable);
+//        var userBookmarks = pageData.getContent().stream()
+//                .map(userBookmark -> {
+//                    var response = userBookmarkMapper.toUserBookmarkResponse(userBookmark);
+//                    response.setCreated(dateTimeFormatter.format(userBookmark.getCreatedAt()));
+//                    return response;
+//                })
+//                .toList();
+//        return PageResponse.<UserBookmarkResponse>builder()
+//                .currentPage(page)
+//                .pageSize(pageData.getSize())
+//                .totalPages(pageData.getTotalPages())
+//                .totalElements(pageData.getTotalElements())
+//                .data(userBookmarks)
+//                .build();
+        return null;
     }
 
     public List<UserBookmarkResponse> getBookmarkByChapter(String userId, String chapterId, String novelId) {
