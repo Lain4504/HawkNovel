@@ -1,9 +1,5 @@
 package com.backend.profileservice.service;
 
-import java.util.Map;
-
-import org.springframework.stereotype.Service;
-
 import com.backend.profileservice.dto.request.UserNovelRatingRequest;
 import com.backend.profileservice.dto.response.UserNovelRatingResponse;
 import com.backend.profileservice.entity.UserNovelRating;
@@ -11,10 +7,12 @@ import com.backend.profileservice.mapper.UserNovelRatingMapper;
 import com.backend.profileservice.repository.UserNovelRatingRepository;
 import com.backend.profileservice.repository.UserProfileRepository;
 import com.backend.profileservice.repository.httpclient.NovelServiceClient;
-
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
@@ -40,8 +38,7 @@ public class UserNovelRatingService {
         if (!userProfileRepository.existsByUserId(request.getUserId())) {
             throw new IllegalArgumentException("User does not exist");
         }
-        UserNovelRating userNovelRating =
-                userNovelRatingRepository.findByUserIdAndNovelId(request.getUserId(), request.getNovelId());
+        UserNovelRating userNovelRating = userNovelRatingRepository.findByUserIdAndNovelId(request.getUserId(), request.getNovelId());
         long oldRating = userNovelRating.getRating();
         long newRating = request.getRating();
         userNovelRatingMapper.updateUserNovelRating(userNovelRating, request);
@@ -54,7 +51,6 @@ public class UserNovelRatingService {
     public boolean hasRatedNovel(String userId, String novelId) {
         return userNovelRatingRepository.findByUserIdAndNovelId(userId, novelId) != null;
     }
-
     public UserNovelRatingResponse getRating(String userId, String novelId) {
         UserNovelRating userNovelRating = userNovelRatingRepository.findByUserIdAndNovelId(userId, novelId);
         return userNovelRatingMapper.toUserNovelRatingResponse(userNovelRating);

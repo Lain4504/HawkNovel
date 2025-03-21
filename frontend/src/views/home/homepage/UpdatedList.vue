@@ -45,8 +45,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="py-8">
-    <a-typography-title level="4" class="mb-6" style="font-size: 20px">CẬP NHẬT MỚI NHẤT</a-typography-title>
+  <div class="max-w-7xl mx-auto py-8">
+    <a-typography-title level="4" class="mb-6">Cập nhật mới nhất</a-typography-title>
 
     <a-skeleton :loading="loading" active>
       <template #default>
@@ -95,6 +95,10 @@ onMounted(() => {
 
   .w-full {
     width: 100%;
+  }
+
+  .max-w-7xl {
+    max-width: 100%;
   }
 
   .px-4 {

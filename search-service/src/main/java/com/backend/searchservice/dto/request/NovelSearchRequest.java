@@ -12,7 +12,7 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NovelSearchRequest {
     String keyword;
-    String categoryName;
+    Integer categoryName;
     Integer bookStatus;
     Integer wordCountMin;
     Integer wordCountMax;

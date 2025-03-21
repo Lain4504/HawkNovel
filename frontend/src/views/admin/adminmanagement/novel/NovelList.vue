@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import {onMounted, ref} from "vue";
 import {deleteNovel, getNovels} from "../../../../api/novel.ts";
+import router from "../../../../router";
 import DynamicDataTable from "../../../../components/admin/DynamicDataTable.vue";
-import {useRouter} from "vue-router";
 
 const novelColumns = [
   {field: "id", headerName: "ID", width: 70},
@@ -16,7 +16,7 @@ const totalPages = ref(1);
 const pageSize = ref(10);
 const currentPage = ref(1);
 const novelRows = ref<any[]>([]);
-const router = useRouter();
+
 const handleEdit = (row: any) => {
   router.push({name: 'novelAuthorManagement', params: {id: row.id}});
 };

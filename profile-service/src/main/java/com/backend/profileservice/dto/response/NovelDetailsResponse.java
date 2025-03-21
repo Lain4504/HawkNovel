@@ -19,3 +19,5 @@ public class NovelDetailsResponse {
     String novelChapterId;
     String novelChapterTitle;
 }
+
+

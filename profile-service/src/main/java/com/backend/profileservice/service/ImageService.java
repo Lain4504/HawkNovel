@@ -1,11 +1,5 @@
 package com.backend.profileservice.service;
 
-import java.time.Instant;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.backend.exception.AppException;
 import com.backend.exception.ErrorCode;
 import com.backend.profileservice.dto.response.ImgurResponse;
@@ -13,10 +7,14 @@ import com.backend.profileservice.entity.Image;
 import com.backend.profileservice.repository.ImageRepository;
 import com.backend.profileservice.repository.httpclient.ImgurClient;
 import com.backend.utils.FileUtils;
-
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
@@ -60,12 +58,12 @@ public class ImageService {
             throw new AppException(ErrorCode.IMAGE_NOT_FOUND);
         });
 
-        //        try {
-        //            String authorization = "Client-ID " + clientId;
-        //            imgurClient.deleteImage(authorization, image.getName());
-        //        } catch (Exception e) {
-        //            throw new RuntimeException("Delete image error", e);
-        //        }
+//        try {
+//            String authorization = "Client-ID " + clientId;
+//            imgurClient.deleteImage(authorization, image.getName());
+//        } catch (Exception e) {
+//            throw new RuntimeException("Delete image error", e);
+//        }
 
         imageRepository.delete(image);
     }

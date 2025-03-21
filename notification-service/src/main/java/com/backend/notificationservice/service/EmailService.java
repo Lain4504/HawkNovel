@@ -1,17 +1,14 @@
 package com.backend.notificationservice.service;
 
+import com.backend.event.NotificationEvent;
+import com.backend.notificationservice.enums.NotificationTemplate;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import com.backend.event.NotificationEvent;
-import com.backend.notificationservice.enums.NotificationTemplate;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +28,8 @@ public class EmailService {
         // Tạo liên kết kích hoạt
         String activationLink = "http://localhost:5173/activation/" + activationToken;
         // Nội dung HTML
-        String html = NotificationTemplate.ACTIVATION_EMAIL.getTemplate().formatted(activationLink);
+        String html = NotificationTemplate.ACTIVATION_EMAIL.getTemplate()
+                .formatted(activationLink);
         // Cấu hình email
         helper.setTo(recipient);
         helper.setSubject(subject);
@@ -52,8 +50,8 @@ public class EmailService {
         String resetLink = "http://localhost:5173/reset-password/" + token;
 
         // HTML Content
-        String emailContent =
-                NotificationTemplate.RESET_PASSWORD_EMAIL.getTemplate().formatted(resetLink);
+        String emailContent = NotificationTemplate.RESET_PASSWORD_EMAIL.getTemplate()
+                .formatted(resetLink);
 
         // Configure Email
         helper.setTo(recipient);

@@ -96,7 +96,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mx-auto p-8">
+  <div class="max-w-7xl mx-auto p-8">
     <Breadcrumb
         :breadcrumbs="[
         { label: 'Home', href: '/' },

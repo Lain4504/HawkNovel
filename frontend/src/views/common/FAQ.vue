@@ -36,7 +36,7 @@ const breadcrumbItems = [
 </script>
 
 <template>
-  <section class="container mx-auto p-6 bg-white">
+  <section class="container mx-auto p-6 bg-white max-w-7xl">
     <a-breadcrumb class="mb-6">
       <a-breadcrumb-item v-for="(item, index) in breadcrumbItems" :key="index">
         <router-link v-if="item.path" :to="item.path">{{ item.title }}</router-link>

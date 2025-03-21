@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import {onMounted, ref} from "vue";
-import {deletePost, getPosts} from "../../../../api/post.ts";
-import {useRouter} from "vue-router";
 import DynamicDataTable from "../../../../components/admin/DynamicDataTable.vue";
+import {deletePost, getPosts} from "../../../../api/post.ts";
+import router from "../../../../router";
+
 const postColumns = [
   {field: "id", headerName: "ID", width: 70},
   {field: "title", headerName: "Tiêu đề", width: 200},
@@ -18,7 +19,7 @@ const currentPage = ref(1);
 const pageSize = ref(10);
 const totalPages = ref(1);
 const postRows = ref<any[]>([]);
-const router = useRouter();
+
 const handleEdit = (row: any) => {
   router.push({name: 'postupdateform', params: {id: row.id}});
 };

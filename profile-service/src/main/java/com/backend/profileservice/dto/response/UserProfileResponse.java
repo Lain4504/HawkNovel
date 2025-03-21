@@ -1,15 +1,14 @@
 package com.backend.profileservice.dto.response;
 
-import java.time.Instant;
-import java.time.LocalDate;
-
 import com.backend.profileservice.entity.Image;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.time.Instant;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor

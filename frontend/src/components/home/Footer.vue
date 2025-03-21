@@ -1,6 +1,6 @@
 <template>
-  <a-layout-footer class="bg-gray-900 text-gray-300 my-8">
-    <div class="container px-4 py-8">
+  <a-layout-footer class="footer bg-gray-900 text-gray-300 my-8">
+    <div class="container mx-auto px-4 py-8">
       <!-- Main Footer Content -->
       <a-row :gutter="16">
         <!-- About Section -->
@@ -106,3 +106,13 @@
 
 <script lang="ts" setup>
 </script>
+
+<style scoped>
+.footer {
+  @apply mt-auto;
+}
+
+:deep(a) {
+  @apply transition-colors duration-200;
+}
+</style>

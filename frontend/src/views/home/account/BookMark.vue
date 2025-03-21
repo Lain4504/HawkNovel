@@ -55,7 +55,7 @@ const truncatedContentNote = (contentNote: string) => {
 </script>
 
 <template>
-  <a-layout>
+  <a-layout class="max-w-7xl mx-auto">
     <a-layout-content>
       <section class="p-4 border rounded bg-white">
         <div class="mt-4 text-sm">

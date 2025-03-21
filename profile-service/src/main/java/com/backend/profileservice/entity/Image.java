@@ -1,12 +1,11 @@
 package com.backend.profileservice.entity;
 
-import java.time.Instant;
-
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import java.time.Instant;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +17,6 @@ import lombok.experimental.FieldDefaults;
 public class Image {
     @MongoId
     String id;
-
     String name;
     String type;
     String path;

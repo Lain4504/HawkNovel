@@ -49,7 +49,7 @@ const breadcrumbItems = [
 </script>
 
 <template>
-  <a-layout class="container mx-auto flex flex-col bg-white">
+  <a-layout class="container max-w-7xl mx-auto flex flex-col bg-white">
     <a-layout-content class="flex-1">
       <a-breadcrumb class="mb-6">
         <a-breadcrumb-item v-for="(item, index) in breadcrumbItems" :key="index">

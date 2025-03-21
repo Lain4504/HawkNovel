@@ -44,6 +44,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="max-w-7xl mx-auto">
     <section class="p-4 border rounded bg-white">
       <div class="mt-4 text-sm">
         <div class="space-y-4">
@@ -89,6 +90,7 @@ onMounted(() => {
         />
       </div>
     </section>
+  </div>
 </template>
 
 <style scoped>

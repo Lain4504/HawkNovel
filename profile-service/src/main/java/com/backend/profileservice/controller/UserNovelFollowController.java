@@ -1,16 +1,14 @@
 package com.backend.profileservice.controller;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.backend.dto.response.ApiResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserNovelFollowRequest;
 import com.backend.profileservice.dto.response.NovelDetailsResponse;
 import com.backend.profileservice.dto.response.UserNovelFollowResponse;
 import com.backend.profileservice.service.UserNovelFollowService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user-novel-follow")
@@ -48,4 +46,5 @@ public class UserNovelFollowController {
                 .result(userNovelFollowService.getFollowingNovelsWithDetails(userId, page, size))
                 .build();
     }
+
 }

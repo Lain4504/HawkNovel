@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+
 import {getNovelCategory, updateNovelCategory} from "../../../../api/novelCategory.ts";
 import {onMounted, ref} from "vue";
 import DynamicFormEdit from "../../../../components/admin/DynamicFormEdit.vue";

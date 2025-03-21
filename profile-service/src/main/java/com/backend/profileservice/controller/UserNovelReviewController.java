@@ -1,15 +1,13 @@
 package com.backend.profileservice.controller;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.backend.dto.response.ApiResponse;
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserReviewRequest;
 import com.backend.profileservice.dto.response.UserReviewResponse;
 import com.backend.profileservice.service.UserReviewService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,16 +18,12 @@ public class UserNovelReviewController {
 
     @PostMapping("/create")
     public ApiResponse<UserReviewResponse> createReview(@RequestBody UserReviewRequest request) {
-        return ApiResponse.<UserReviewResponse>builder()
-                .result(userReviewService.createReview(request))
-                .build();
+        return ApiResponse.<UserReviewResponse>builder().result(userReviewService.createReview(request)).build();
     }
 
     @PutMapping("/update")
     public ApiResponse<UserReviewResponse> updateReview(@RequestBody UserReviewRequest request) {
-        return ApiResponse.<UserReviewResponse>builder()
-                .result(userReviewService.updateReview(request))
-                .build();
+        return ApiResponse.<UserReviewResponse>builder().result(userReviewService.updateReview(request)).build();
     }
 
     @DeleteMapping("/delete")
@@ -39,10 +33,10 @@ public class UserNovelReviewController {
     }
 
     @GetMapping("/get/novel/{novelId}")
-    public ApiResponse<PageResponse<UserReviewResponse>> getReviewsByNovelId(
-            @PathVariable String novelId,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+    public ApiResponse<PageResponse<UserReviewResponse>> getReviewsByNovelId(@PathVariable String novelId,
+                                                                             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                                                             @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
         return ApiResponse.<PageResponse<UserReviewResponse>>builder()
                 .result(userReviewService.getReviewsByNovelId(novelId, page, size))
                 .build();
@@ -51,7 +45,8 @@ public class UserNovelReviewController {
     @GetMapping("/get/get-latest")
     public ApiResponse<PageResponse<UserReviewResponse>> getReviewsByUserId(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
         return ApiResponse.<PageResponse<UserReviewResponse>>builder()
                 .result(userReviewService.getLatestReview(page, size))
                 .build();

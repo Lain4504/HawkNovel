@@ -1,11 +1,10 @@
 package com.backend.profileservice.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-
 import com.backend.profileservice.dto.request.UserNovelRatingRequest;
 import com.backend.profileservice.dto.response.UserNovelRatingResponse;
 import com.backend.profileservice.entity.UserNovelRating;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserNovelRatingMapper {

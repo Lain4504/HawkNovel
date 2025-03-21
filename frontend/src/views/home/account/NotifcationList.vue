@@ -47,7 +47,7 @@ const goToPage = (page: number) => {
 </script>
 
 <template>
-  <a-layout class="mx-auto bg-white">
+  <a-layout class="max-w-7xl mx-auto bg-white">
     <a-layout-content class="p-4">
       <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Notifications</h1>

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
 import DynamicDataTable from "../../../../components/admin/DynamicDataTable.vue";
+import router from "../../../../router";
 import {deleteAds, getAllAds} from "../../../../api/resource.ts";
-import {useRouter} from "vue-router";
 
 // Define columns for the data table
 const AdsColumns = [
@@ -16,7 +16,7 @@ const AdsColumns = [
     isAction: true,
   },
 ];
-const router = useRouter();
+
 // Define reactive variables for pagination
 const currentPage = ref(1);
 const pageSize = ref(10);

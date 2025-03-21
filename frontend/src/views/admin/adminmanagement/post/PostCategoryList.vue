@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
+import DynamicDataTable from "../../../../components/admin/DynamicDataTable.vue";
 import {deletePostCategory, getPostCategories} from "../../../../api/postCategory.ts";
-import {useRouter} from "vue-router";
-import { defineAsyncComponent } from 'vue';
-const DynamicDataTable = defineAsyncComponent(() => import("../../../../components/admin/DynamicDataTable.vue"));
+import router from "../../../../router";
+
 // Define columns for the data table
 const postCategoryColumns = [
   {field: "id", headerName: "ID", width: 70},
@@ -16,7 +16,7 @@ const postCategoryColumns = [
     isAction: true,
   },
 ];
-const router = useRouter();
+
 // Define reactive variables for pagination
 const currentPage = ref(1);
 const pageSize = ref(10);

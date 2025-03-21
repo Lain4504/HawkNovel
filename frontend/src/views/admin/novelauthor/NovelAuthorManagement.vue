@@ -281,7 +281,7 @@ onMounted(() => {
   >
     <p>This action cannot be undone.</p>
   </a-modal>
-  <div class="flex justify-center items-center mx-auto">
+  <div class="flex justify-center items-center max-w-7xl mx-auto">
     <a-card class="bg-white rounded-lg shadow-md w-full">
       <a-typography-title level={1} style="font-size: 20px;">Quản lý tiểu thuyết</a-typography-title>
       <div class="space-y-4 mt-10">
@@ -356,7 +356,7 @@ onMounted(() => {
       </div>
     </a-card>
   </div>
-  <div class="flex justify-center items-center mx-auto">
+  <div class="flex justify-center items-center max-w-7xl mx-auto">
     <EditContentChapter v-if="showEditChapter" :chapterData="selectedChapterData"
                         class="my-10" @chapter-updated="handleChapterUpdated"/>
     <AddChapter v-if="showAddChapter" :volumeId="selectedVolumeData.id" class="my-10"
@@ -371,3 +371,13 @@ onMounted(() => {
                      @volume-order-updated="handleVolumeUpdated"/>
   </div>
 </template>
+
+<style scoped>
+.bg-white {
+  background-color: #FFFFFF;
+}
+
+.border {
+  border-color: #E7F5EE;
+}
+</style>

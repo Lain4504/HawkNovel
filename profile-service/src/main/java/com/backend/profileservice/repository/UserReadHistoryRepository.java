@@ -1,11 +1,10 @@
 package com.backend.profileservice.repository;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.backend.profileservice.entity.UserReadHistory;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.backend.profileservice.entity.UserReadHistory;
+import java.util.List;
+import java.util.Optional;
 
 public interface UserReadHistoryRepository extends MongoRepository<UserReadHistory, String> {
     Optional<UserReadHistory> findByUserIdAndNovelId(String userId, String novelId);

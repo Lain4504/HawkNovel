@@ -1,15 +1,5 @@
 package com.backend.profileservice.service;
 
-import java.time.Instant;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import com.backend.utils.DateTimeFormatterUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
 import com.backend.dto.response.PageResponse;
 import com.backend.profileservice.dto.request.UserReviewRequest;
 import com.backend.profileservice.dto.response.NovelDetailsResponse;
@@ -19,9 +9,17 @@ import com.backend.profileservice.mapper.UserReviewMapper;
 import com.backend.profileservice.repository.UserProfileRepository;
 import com.backend.profileservice.repository.UserReviewRepository;
 import com.backend.profileservice.repository.httpclient.NovelServiceClient;
-
+import com.backend.utils.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +27,7 @@ import lombok.experimental.FieldDefaults;
 public class UserReviewService {
     UserReviewRepository userReviewRepository;
     UserReviewMapper userReviewMapper;
-    DateTimeFormatterUtils dateTimeFormatter;
+    DateTimeFormatter dateTimeFormatter;
     NovelServiceClient novelServiceClient;
     UserProfileRepository userProfileRepository;
 
@@ -47,8 +45,7 @@ public class UserReviewService {
         if (!userProfileRepository.existsByUserId(request.getUserId())) {
             throw new IllegalArgumentException("User does not exist");
         }
-        userReviewMapper.updateUserReview(
-                userReviewRepository.findByUserIdAndNovelId(request.getUserId(), request.getNovelId()), request);
+        userReviewMapper.updateUserReview(userReviewRepository.findByUserIdAndNovelId(request.getUserId(), request.getNovelId()), request);
         return userReviewMapper.toUserReviewResponse(userReviewRepository.save(userReviewMapper.toUserReview(request)));
     }
 
@@ -60,29 +57,22 @@ public class UserReviewService {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         var pageData = userReviewRepository.findAllByNovelId(novelId, pageable);
-        var novelIds = pageData.getContent().stream()
-                .map(UserReview::getNovelId)
-                .distinct()
-                .toList();
+        var novelIds = pageData.getContent().stream().map(UserReview::getNovelId).distinct().toList();
         var novelDetails = novelServiceClient.getNovelDetails(novelIds);
-        var novelDetailsMap =
-                novelDetails.stream().collect(Collectors.toMap(NovelDetailsResponse::getNovelId, Function.identity()));
-        var novelReviews = pageData.getContent().stream()
-                .map(novelReview -> {
-                    var userReviewResponse = userReviewMapper.toUserReviewResponse(novelReview);
-                    userReviewResponse.setCreated(dateTimeFormatter.format(novelReview.getCreatedAt()));
-                    var novelDetail = novelDetailsMap.get(novelReview.getNovelId());
-                    var userProfile = userProfileRepository
-                            .findByUserId(novelReview.getUserId())
-                            .orElseThrow(() -> new RuntimeException("User not found"));
-                    userReviewResponse.setImage(userProfile.getImage().getPath());
-                    userReviewResponse.setUserName(userProfile.getUsername());
-                    if (novelDetail != null) {
-                        userReviewResponse.setNovelName(novelDetail.getNovelName());
-                    }
-                    return userReviewResponse;
-                })
-                .toList();
+        var novelDetailsMap = novelDetails.stream()
+                .collect(Collectors.toMap(NovelDetailsResponse::getNovelId, Function.identity()));
+        var novelReviews = pageData.getContent().stream().map(novelReview -> {
+            var userReviewResponse = userReviewMapper.toUserReviewResponse(novelReview);
+            userReviewResponse.setCreated(dateTimeFormatter.format(novelReview.getCreatedAt()));
+            var novelDetail = novelDetailsMap.get(novelReview.getNovelId());
+            var userProfile = userProfileRepository.findByUserId(novelReview.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+            userReviewResponse.setImage(userProfile.getImage().getPath());
+            userReviewResponse.setUserName(userProfile.getUsername());
+            if (novelDetail != null) {
+                userReviewResponse.setNovelName(novelDetail.getNovelName());
+            }
+            return userReviewResponse;
+        }).toList();
 
         return PageResponse.<UserReviewResponse>builder()
                 .currentPage(page)
@@ -97,29 +87,22 @@ public class UserReviewService {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         var pageData = userReviewRepository.findAll(pageable);
-        var novelIds = userReviewRepository.findAll(pageable).stream()
-                .map(UserReview::getNovelId)
-                .distinct()
-                .toList();
+        var novelIds = userReviewRepository.findAll(pageable).stream().map(UserReview::getNovelId).distinct().toList();
         var novelDetails = novelServiceClient.getNovelDetails(novelIds);
-        var novelDetailsMap =
-                novelDetails.stream().collect(Collectors.toMap(NovelDetailsResponse::getNovelId, Function.identity()));
-        var novelReviews = pageData.getContent().stream()
-                .map(novelReview -> {
-                    var userReviewResponse = userReviewMapper.toUserReviewResponse(novelReview);
-                    userReviewResponse.setCreated(dateTimeFormatter.format(novelReview.getCreatedAt()));
-                    var novelDetail = novelDetailsMap.get(novelReview.getNovelId());
-                    var userProfile = userProfileRepository
-                            .findByUserId(novelReview.getUserId())
-                            .orElseThrow(() -> new RuntimeException("User not found"));
-                    userReviewResponse.setImage(userProfile.getImage().getPath());
-                    userReviewResponse.setUserName(userProfile.getUsername());
-                    if (novelDetail != null) {
-                        userReviewResponse.setNovelName(novelDetail.getNovelName());
-                    }
-                    return userReviewResponse;
-                })
-                .toList();
+        var novelDetailsMap = novelDetails.stream()
+                .collect(Collectors.toMap(NovelDetailsResponse::getNovelId, Function.identity()));
+        var novelReviews = pageData.getContent().stream().map(novelReview -> {
+            var userReviewResponse = userReviewMapper.toUserReviewResponse(novelReview);
+            userReviewResponse.setCreated(dateTimeFormatter.format(novelReview.getCreatedAt()));
+            var novelDetail = novelDetailsMap.get(novelReview.getNovelId());
+            var userProfile = userProfileRepository.findByUserId(novelReview.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+            userReviewResponse.setImage(userProfile.getImage().getPath());
+            userReviewResponse.setUserName(userProfile.getUsername());
+            if (novelDetail != null) {
+                userReviewResponse.setNovelName(novelDetail.getNovelName());
+            }
+            return userReviewResponse;
+        }).toList();
         return PageResponse.<UserReviewResponse>builder()
                 .currentPage(page)
                 .pageSize(pageData.getSize())

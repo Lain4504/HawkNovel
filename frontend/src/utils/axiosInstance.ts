@@ -1,7 +1,6 @@
 import axios from 'axios';
 import store from "../store/index";
 import router from "../router/index";
-import {refreshToken} from "../api/auth.ts";
 
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL
@@ -20,15 +19,9 @@ axios.interceptors.response.use((response) => {
     return response;
 }, (error) => {
     if (error.response.status === 401) {
-        refreshToken(store.getters.getRefreshToken).then((response) => {
-            store.commit('setToken', response.accessToken);
-            store.commit('setRefreshToken', response.refreshToken);
-            console.log('refresh token success', response);
-        }).catch((error) => {
-            console.log('refresh token error', error);
-            store.commit('clearUser');
-            router.push('/login');
-        });
+        store.commit('clearUser');
+        console.log('401 error');
+        router.push('/login');
     }
     return Promise.reject(error);
 });

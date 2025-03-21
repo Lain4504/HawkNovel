@@ -105,8 +105,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="py-8">
-    <div class="mx-auto px-4">
+  <div class="bg-[#f0f2f5] py-8">
+    <div class="max-w-7xl mx-auto px-4">
       <a-breadcrumb class="mb-6">
         <a-breadcrumb-item v-for="(item, index) in breadcrumbItems" :key="index">
           <router-link v-if="item.path" :to="item.path">{{ item.title }}</router-link>

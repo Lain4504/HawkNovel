@@ -76,7 +76,7 @@ const handleResize = () => {
 </script>
 
 <template>
-  <div class="w-full mx-auto px-4 bg-white my-5">
+  <div class="w-full max-w-7xl mx-auto px-4 bg-white my-5">
     <div class="flex items-center justify-between mb-6">
       <a-typography-title level={4} style="color: #18A058; font-size: 20px">MỚI HOÀN THÀNH</a-typography-title>
       <div class="flex items-center gap-4">

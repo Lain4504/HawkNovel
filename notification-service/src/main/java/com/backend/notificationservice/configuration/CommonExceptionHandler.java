@@ -1,8 +1,9 @@
 package com.backend.notificationservice.configuration;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import com.backend.dto.response.ApiResponse;
+import com.backend.exception.AppException;
+import com.backend.exception.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
@@ -10,11 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.backend.dto.response.ApiResponse;
-import com.backend.exception.AppException;
-import com.backend.exception.ErrorCode;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Slf4j
@@ -57,10 +55,14 @@ public class CommonExceptionHandler {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception) {
         Map<String, String> errors = exception.getBindingResult().getFieldErrors().stream()
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+                .collect(Collectors.toMap(
+                        FieldError::getField,
+                        FieldError::getDefaultMessage
+                ));
 
-        String errorMessage =
-                errors.entrySet().stream().map(entry -> "- " + entry.getValue()).collect(Collectors.joining("\n"));
+        String errorMessage = errors.entrySet().stream()
+                .map(entry -> "- " + entry.getValue())
+                .collect(Collectors.joining("\n"));
 
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(ErrorCode.INVALID_INPUT.getCode());

@@ -5,8 +5,6 @@ import store from "../../../store";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import router from "../../../router";
 import ChapterList from './ChapterList.vue';
-import {message} from "ant-design-vue";
-import BookmarkList from "./BookmarkList.vue";
 
 const props = defineProps<{
   chapter: {
@@ -31,7 +29,6 @@ const bookmarkVisible = ref(false);
 const selectedText = ref('');
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 const showChapterList = ref(false);
-const showBookmarkList = ref(false);
 
 const handleContentClick = (event: MouseEvent | TouchEvent) => {
   if (!isAuthenticated.value) return;
@@ -61,7 +58,6 @@ const handleAddBookmark = async () => {
     console.log('Bookmark added successfully', data);
     await addBookmark(store.getters.getUserId, data);
     bookmarkVisible.value = false;
-    message.success('Bookmark added successfully');
   } catch (error) {
     console.error('Failed to add bookmark:', error);
   }
@@ -73,16 +69,6 @@ const handleResize = () => {
 
 const toggleChapterList = () => {
   showChapterList.value = !showChapterList.value;
-  if (showChapterList.value) {
-    showBookmarkList.value = false;
-  }
-};
-
-const toggleBookmarkList = () => {
-  showBookmarkList.value = !showBookmarkList.value;
-  if (showBookmarkList.value) {
-    showChapterList.value = false;
-  }
 };
 
 onMounted(() => {
@@ -96,14 +82,13 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
-
 const goBackNovel = () => {
   router.push({name: 'noveldetail', params: {id: props.novel.id}});
 };
 </script>
 
 <template>
-  <div class="text-gray-800 relative content">
+  <div class="bg-gray-50 text-gray-800 relative content">
     <div v-if="bookmarkVisible && isAuthenticated"
          :style="{ top: `${bookmarkPosition.top}px`, left: `${bookmarkPosition.left}px` }"
          class="absolute z-50 bookmark-button">
@@ -114,7 +99,7 @@ const goBackNovel = () => {
         <font-awesome-icon :icon="['fas', 'bookmark']" size="lg"/>
       </button>
     </div>
-    <main class="container px-4 py-6 max-w-6xl mx-auto">
+    <main class="container mx-auto px-4 py-6 max-w-6xl">
       <div class="text-center mb-6">
         <h2 class="text-2xl font-semibold mb-2">
           {{ chapter.title }}
@@ -153,7 +138,7 @@ const goBackNovel = () => {
           <font-awesome-icon :icon="['fas', 'list']" class="text-gray-600"/>
         </button>
 
-        <button class="p-2 hover:bg-[#E7F5EE]  rounded transition-colors" @click="toggleBookmarkList">
+        <button class="p-2 hover:bg-[#E7F5EE]  rounded transition-colors">
           <font-awesome-icon :icon="['fas', 'bookmark']" class="text-gray-600"/>
         </button>
 
@@ -168,7 +153,7 @@ const goBackNovel = () => {
           <font-awesome-icon :icon="['fas', 'angles-left']" class="w-5 h-5 text-gray-600"/>
         </button>
         <button class="p-2 hover:bg-[#E7F5EE] rounded-full transition-colors" @click="goBackNovel">
-          <font-awesome-icon :icon="['fas', 'home']" class="w-5 h-5 text-gray-600"/>
+            <font-awesome-icon :icon="['fas', 'home']" class="w-5 h-5 text-gray-600"/>
         </button>
         <button class="p-2 hover:bg-[#E7F5EE] rounded-full transition-colors">
           <font-awesome-icon :icon="['fas', 'font']" class="w-5 h-5 text-gray-600"/>
@@ -178,7 +163,7 @@ const goBackNovel = () => {
           <font-awesome-icon :icon="['fas', 'list']" class="w-5 h-5 text-gray-600"/>
         </button>
 
-        <button class="p-2 hover:bg-[#E7F5EE] rounded-full transition-colors" @click="toggleBookmarkList">
+        <button class="p-2 hover:bg-[#E7F5EE] rounded-full transition-colors">
           <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5 text-gray-600"/>
         </button>
 
@@ -188,14 +173,12 @@ const goBackNovel = () => {
       </div>
     </div>
     <ChapterList v-if="showChapterList" :volumeId="props.chapter.volumeId" :novelId="props.novel.id" @close="toggleChapterList" class="fixed left-0 top-0 h-full bg-white shadow-lg z-50"/>
-    <BookmarkList v-if="showBookmarkList" :novel="props.novel.id" :chapter="props.chapter.id" @close="toggleBookmarkList" class="fixed left-0 top-0 h-full bg-white shadow-lg z-50"/>
   </div>
 </template>
 
-
 <style scoped>
 .bookmark-button {
-  transform: translate(-250%, -300%);
+  transform: translate(-50%, -300%);
   transition: transform 0.3s ease-in-out;
 }
 

@@ -1,12 +1,11 @@
 package com.backend.profileservice.entity;
 
-import java.time.Instant;
-
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -18,7 +17,6 @@ import lombok.experimental.FieldDefaults;
 public class UserBookmark {
     @MongoId
     String id;
-
     String userId;
     String novelId;
     String novelTitle;

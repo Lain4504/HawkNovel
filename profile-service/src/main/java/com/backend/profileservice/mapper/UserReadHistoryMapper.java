@@ -1,11 +1,10 @@
 package com.backend.profileservice.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-
 import com.backend.profileservice.dto.request.UserReadHistoryRequest;
 import com.backend.profileservice.dto.response.UserReadHistoryResponse;
 import com.backend.profileservice.entity.UserReadHistory;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserReadHistoryMapper {

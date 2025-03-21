@@ -17,15 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final String[] PUBLIC_ENDPOINTS_GET = {
-        "internal/users/**",
-        "/users/get/**",
-        "/user-novel-review/get/**",
-        "/user-novel-follow/get/**",
-        "/user-novel-rating/get/**",
+    private final String[] PUBLIC_ENDPOINTS_GET = {"internal/users/**",
+            "/users/get/**", "/user-novel-review/get/**", "/user-novel-follow/get/**", "/user-novel-rating/get/**",
     };
-    private final String[] PUBLIC_ENDPOINTS_POST = {"internal/users/**", "/user-novel-follow/is-following"};
-
+    private final String[] PUBLIC_ENDPOINTS_POST = {"internal/users/**",
+            "/user-novel-follow/is-following"
+    };
     @Autowired
     private final CustomJwtDecoder customJwtDecoder;
 
@@ -35,12 +32,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST)
-                .permitAll()
-                .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET)
-                .permitAll()
-                .anyRequest()
-                .authenticated());
+        httpSecurity.authorizeHttpRequests(request -> request
+                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
+                .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll()
+                .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
                         .decoder(customJwtDecoder)

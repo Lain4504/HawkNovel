@@ -84,6 +84,7 @@ const routes: Array<RouteRecordRaw> = [
             { name: ROUTE_NAMES.POST_DETAIL, path: '/post/:id', component: () => import('../views/home/forum/PostDetail.vue'), props: true },
             { name: ROUTE_NAMES.POST_CREATE_FORM, path: '/post-create-form', component: () => import('../views/home/forum/PostCreateForm.vue') },
             { name: ROUTE_NAMES.POST_UPDATE_FORM, path: '/post-update-form/:id', component: () => import('../views/home/forum/PostUpdateForm.vue'), props: true },
+            { name: ROUTE_NAMES.ACTIVATION, path: '/activation/:token', component: () => import('../views/home/account/Activation.vue') },
             { name: ROUTE_NAMES.FILTER_BY_CATEGORY, path: '/filter-by-category', component: () => import('../views/home/novel/FilterByCategory.vue') },
             { name: ROUTE_NAMES.SEARCH_ADVANCED, path: '/search-advanced', component: () => import('../views/home/novel/SearchAdvanced.vue') },
             { name: ROUTE_NAMES.NOTIFICATION_LIST, path: '/notification-list', component: () => import('../views/home/account/NotifcationList.vue') },
@@ -91,7 +92,6 @@ const routes: Array<RouteRecordRaw> = [
     },
     { name: ROUTE_NAMES.LOGIN, path: '/login', component: () => import('../views/auth/Login.vue') },
     { name: ROUTE_NAMES.REGISTER, path: '/register', component: () => import('../views/auth/Register.vue') },
-    { name: ROUTE_NAMES.ACTIVATION, path: '/activation/:token', component: () => import('../components/auth/Activation.vue') },
 ];
 
 const router = createRouter({

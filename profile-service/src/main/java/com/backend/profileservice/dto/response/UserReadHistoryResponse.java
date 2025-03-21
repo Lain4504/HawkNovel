@@ -1,9 +1,9 @@
 package com.backend.profileservice.dto.response;
 
-import java.time.LocalDateTime;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,4 +20,5 @@ public class UserReadHistoryResponse {
     String novelChapterTitle;
     LocalDateTime createdDate;
     LocalDateTime modifiedDate;
+
 }
